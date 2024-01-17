@@ -14,16 +14,8 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   // Check login status of the user
-  async canActivate(): Promise<boolean> {
-    console.log('run Guard');
-    console.log(this.authService.currentUserValue);
-    if (!this.authService.currentUserValue.userName && !await this.authService.getLocalStorageData()) {
-      this.router.navigateByUrl('/');
-      return false;
-    }
-    return true;
-  }
-    /* return this.authService.getLocalStorageData().pipe(
+  canActivate(): Observable<boolean> {
+    return this.authService.getLocalStorageData().pipe(
       map((isLoggedIn: boolean) => {
         if (isLoggedIn) {
           return true;
@@ -33,6 +25,6 @@ export class AuthGuard implements CanActivate {
           return false;
         }
       })
-    ); */
+    );
   }
-
+  }

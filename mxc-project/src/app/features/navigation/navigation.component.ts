@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -10,11 +10,25 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   authService = inject(AuthService);
   router = inject(Router)
 
+  public showLogout = false;
+
+  ngOnInit(): void {
+    this.authService.currentUserSubject$.subscribe((user) => {
+      if (user) {
+        this.showLogout = true;
+      } else {
+        this.showLogout = false;
+      }
+    });
+  }
+
   public logout() {
+    // Since it didn't run oninit at logout, I reset it manually here
+    this.showLogout = false;
     this.authService.logout()
   }
 

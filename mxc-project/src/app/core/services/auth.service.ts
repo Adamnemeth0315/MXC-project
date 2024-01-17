@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { ILoginUser } from '../models/login';
-import { IUser } from '../models/user';
 import { ConfigService } from './config.service';
 
 export interface ILoginResponse {
@@ -30,23 +29,12 @@ export class AuthService {
     return this.currentUserSubject$.value;
   }
 
-  async getLocalStorageData(): Promise<boolean> {
-    if (localStorage['currentUser']) {
-      this.loginResponse = JSON.parse(localStorage['currentUser']);
-      const user = await this.getUserMe(this.loginResponse.access_token);
-      this.currentUserSubject$.next(user as unknown as ILoginUser);
-      return true;
-    }
-    return false;
-  }
-
-  /* getLocalStorageData(): Observable<boolean> {
-    return of(localStorage['currentUser']).pipe(
+  getLocalStorageData(): Observable<boolean> {
+    return of(localStorage[this.configService.storageName]).pipe(
       switchMap((localStorageData) => {
+        console.log(localStorageData);
         if (localStorageData) {
-          console.log(localStorageData);
           this.loginResponse = JSON.parse(localStorageData);
-          console.log(this.loginResponse.access_token);
           return this.getUserMe(this.loginResponse.access_token);
         } else {
           return of(null); // If there is no localStorage data, an empty observable is returned
@@ -55,19 +43,20 @@ export class AuthService {
       catchError(() => of(null)),
       tap((user) => {
         if (user) {
-          console.log(user);
           this.currentUserSubject$.next(user);
         }
       }),
       map((user) => !!user)
-  )}; */
+  )};
 
-  public login(user: any): Observable<any> {
+  public login(user: ILoginUser): Observable<any> {
     return this.http.post<ILoginResponse>(`${this.baseUrl}token`, user).pipe(
       switchMap((response) => {
         return this.getUserMe(response.access_token).pipe(
           tap((user) => {
-
+            if (response.access_token) {
+              localStorage.setItem(this.configService.storageName, JSON.stringify(response));
+            }
             this.currentUserSubject$.next(user);
             this.loginResponse = response;
           }),
@@ -82,7 +71,10 @@ export class AuthService {
   public logout(): void {
 
     this.http.post(`${this.baseUrl}logout`, null).subscribe({
-      next: () => this.router.navigate(['/'])
+      next: () => {
+        localStorage.removeItem(this.configService.storageName);
+        this.router.navigate(['/']);
+      }
     })
   }
 

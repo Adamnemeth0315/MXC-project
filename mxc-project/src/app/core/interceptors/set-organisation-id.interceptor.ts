@@ -12,7 +12,6 @@ export class SetOrganisationIdInterceptor implements HttpInterceptor {
 
     const organisationId = this.configService.organisationID;
     const user = this.authService.currentUserValue;
-    console.log(user);
 
     if (user) {
       const modifiedRequest = request.clone({
