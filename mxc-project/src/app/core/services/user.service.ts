@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   http = inject(HttpClient);
-  baseUrl = 'https://dev-isf-ticketing-app.azurewebsites.net/api/v1/admin/';
+  configService = inject(ConfigService);
+
+  baseUrl = `${this.configService.baseUrl}admin/`;
 
   constructor() { }
 

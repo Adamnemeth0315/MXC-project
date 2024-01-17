@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { ILoginUser } from '../models/login';
 import { IUser } from '../models/user';
+import { ConfigService } from './config.service';
 
 export interface ILoginResponse {
   access_token: string;
@@ -17,7 +18,11 @@ export interface ILoginResponse {
 export class AuthService {
   http = inject(HttpClient);
   router = inject(Router);
-  baseUrl = 'https://dev-isf-ticketing-app.azurewebsites.net/api/v1/identity/';
+  configService = inject(ConfigService);
+
+
+
+  baseUrl = `${this.configService.baseUrl}identity/`;
   currentUserSubject$: BehaviorSubject<ILoginUser | null> = new BehaviorSubject<ILoginUser | null>(null);
   public loginResponse: ILoginResponse = {access_token: '', token_type: '', expires_in: 0}
 

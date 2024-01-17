@@ -1,14 +1,16 @@
 import { HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { AuthService } from "../services/auth.service";
+import { ConfigService } from "../services/config.service";
 
 @Injectable()
 export class SetOrganisationIdInterceptor implements HttpInterceptor {
   authService = inject(AuthService);
+  configService = inject(ConfigService);
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
 
-    const organisationId = '7065e94e-ace2-4846-9056-1638a97118e5';
+    const organisationId = this.configService.organisationID;
     const user = this.authService.currentUserValue;
 
     if (user) {
