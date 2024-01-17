@@ -1,0 +1,21 @@
+<div class="d-flex flex-column justify-content-center align-items-center shadow-sm border rounded-3 mx-auto w-50 py-4">
+  <div class="d-flex justify-content-start w-100 px-4">
+    <h1 class="login__title">Bejelentkezés</h1>
+  </div>
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="d-flex flex-column p-2">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Felhasználónév</mat-label>
+        <input formControlName="userName" matInput type="text" placeholder="Add meg a felhasználó neved">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Jelszó</mat-label>
+        <input formControlName="password" matInput type="password" placeholder="Add meg a jelszavad">
+      </mat-form-field>
+
+      <button type="submit" class="btn btn-primary">Bejelentkezés</button>
+    </div>
+  </form>
+</div>
