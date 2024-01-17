@@ -1,4 +1,4 @@
-export class LoginUser {
-  userName = '';
-  password = '';
-};
+export interface ILoginUser {
+  userName: string;
+  password: string;
+}

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginUser } from '../../core/models/login';
+import { ILoginUser } from '../../core/models/login';
 import { AuthService } from '../../core/services/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,7 +34,7 @@ export class LoginComponent {
   }
 
   public login() {
-    const user = this.loginForm.value as LoginUser;
+    const user = this.loginForm.value as ILoginUser;
     this.authService.login(user).subscribe({
       next: () => this.route.navigate(['/users'])
     })

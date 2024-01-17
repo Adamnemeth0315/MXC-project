@@ -12,8 +12,10 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Jelszó</mat-label>
-        <input formControlName="password" matInput type="{{hidePassword ? 'password' : 'text'}}" placeholder="Add meg a jelszavad">
-        <mat-icon matSuffix (click)="togglePasswordVisibility()">{{hidePassword ? 'visibility' :'visibility_off'}}</mat-icon>
+        <input formControlName="password" matInput type="{{hidePassword ? 'password' : 'text'}}"
+          placeholder="Add meg a jelszavad">
+        <mat-icon matSuffix (click)="togglePasswordVisibility()">{{hidePassword ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
       </mat-form-field>
 
       <button type="submit" class="btn btn-primary">Bejelentkezés</button>
