@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { ILoginUser } from '../models/login';
+import { LoginUser } from '../models/login';
 import { IUser } from '../models/user';
 import { ConfigService } from './config.service';
 
@@ -20,10 +20,8 @@ export class AuthService {
   router = inject(Router);
   configService = inject(ConfigService);
 
-
-
   baseUrl = `${this.configService.baseUrl}identity/`;
-  currentUserSubject$: BehaviorSubject<ILoginUser | null> = new BehaviorSubject<ILoginUser | null>(null);
+  currentUserSubject$: BehaviorSubject<LoginUser> = new BehaviorSubject<LoginUser>(new LoginUser());
   public loginResponse: ILoginResponse = {access_token: '', token_type: '', expires_in: 0}
 
   constructor() { }
@@ -32,11 +30,23 @@ export class AuthService {
     return this.currentUserSubject$.value;
   }
 
-  getLocalStorageData(): Observable<boolean> {
+  async getLocalStorageData(): Promise<boolean> {
+    if (localStorage['currentUser']) {
+      this.loginResponse = JSON.parse(localStorage['currentUser']);
+      const user = await this.getUserMe(this.loginResponse.access_token);
+      this.currentUserSubject$.next(user as unknown as LoginUser);
+      return true;
+    }
+    return false;
+  }
+
+  /* getLocalStorageData(): Observable<boolean> {
     return of(localStorage['currentUser']).pipe(
       switchMap((localStorageData) => {
         if (localStorageData) {
+          console.log(localStorageData);
           this.loginResponse = JSON.parse(localStorageData);
+          console.log(this.loginResponse.access_token);
           return this.getUserMe(this.loginResponse.access_token);
         } else {
           return of(null); // If there is no localStorage data, an empty observable is returned
@@ -50,9 +60,9 @@ export class AuthService {
         }
       }),
       map((user) => !!user)
-  )};
+  )}; */
 
-  public login(user: ILoginUser): Observable<any> {
+  public login(user: LoginUser): Observable<any> {
     return this.http.post<ILoginResponse>(`${this.baseUrl}token`, user).pipe(
       switchMap((response) => {
         return this.getUserMe(response.access_token).pipe(
