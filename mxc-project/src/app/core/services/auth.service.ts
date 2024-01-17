@@ -49,7 +49,7 @@ export class AuthService {
       map((user) => !!user)
   )};
 
-  public login(user: ILoginUser): Observable<any> {
+  public login(user: ILoginUser): Observable<ILoginUser> {
     return this.http.post<ILoginResponse>(`${this.baseUrl}token`, user).pipe(
       switchMap((response) => {
         return this.getUserMe(response.access_token).pipe(
@@ -78,7 +78,7 @@ export class AuthService {
     })
   }
 
-  getUserMe(accessToken: string): Observable<any> {
-    return this.http.get<any>(`${this.configService.baseUrl}user/me`, { headers: { Authorization: `Bearer ${accessToken}` } });
+  getUserMe(accessToken: string): Observable<ILoginUser> {
+    return this.http.get<ILoginUser>(`${this.configService.baseUrl}user/me`, { headers: { Authorization: `Bearer ${accessToken}` } });
   }
 }
