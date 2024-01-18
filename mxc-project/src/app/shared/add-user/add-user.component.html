@@ -1,28 +1,50 @@
-<div class="user-edit" mat-dialog-header>
-  <h1>{{'User Name'}}</h1>
-
-  <form class="form" [formGroup]="userForm" >
-    <div class="d-flex flex-column p-2">
-
-      <mat-form-field appearance="outline">
-        <mat-label>Keresztnév</mat-label>
-        <input formControlName="firstName" matInput type="text" placeholder="Add meg a keresztneved">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Vezetéknév</mat-label>
-        <input formControlName="lastName" matInput type="text"
-          placeholder="Add meg a vezetékneved">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Felhasználó név</mat-label>
-        <input formControlName="userName" matInput type="text"
-          placeholder="Add meg a felhasználó nevet">
-      </mat-form-field>
-
-      <button type="submit" class="btn btn-primary">Szerkeeszés</button>
+<div class="user-edit">
+  <div class="user-edit__header" mat-dialog-header>
+    <h1>{{'User Name'}}</h1>
+    <mat-icon mat-dialog-close>close</mat-icon>
     </div>
-  </form>
+  <div mat-dialog-content>
+    <form class="form" [formGroup]="userForm" (ngSubmit)="submitForm()">
+      <div class="d-flex flex-column p-2">
 
+        <mat-form-field appearance="outline">
+          <mat-label>Keresztnév</mat-label>
+          <input formControlName="firstName" matInput type="text" placeholder="Add meg a keresztneved">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Vezetéknév</mat-label>
+          <input formControlName="lastName" matInput type="text"
+            placeholder="Add meg a vezetékneved">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Felhasználó név</mat-label>
+          <input formControlName="userName" matInput type="text"
+            placeholder="Add meg a felhasználó nevet">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Jelszó</mat-label>
+          <input formControlName="password" matInput type="password"
+            placeholder="Add meg a felhasználó jelszavát">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput type="text"
+            placeholder="Add meg a felhasználó email címét">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Telefonszám</mat-label>
+          <input formControlName="phoneNumber" matInput type="text"
+            placeholder="Add meg a felhasználó telefonszámát">
+        </mat-form-field>
+
+        <button type="submit" class="btn btn-primary">Szerkeeszés</button>
+      </div>
+    </form>
+
+  </div>
 </div>

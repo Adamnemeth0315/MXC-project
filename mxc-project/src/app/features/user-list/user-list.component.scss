@@ -1,0 +1,14 @@
+.users-table {
+  width: 100%;
+  margin: 20px 40px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+  }
+
+  &__delete-icon {
+    cursor: pointer;
+  }
+}

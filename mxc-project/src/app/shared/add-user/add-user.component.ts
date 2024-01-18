@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { IUser } from '../../core/models/user';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-add-user',
@@ -15,21 +17,30 @@ import { IUser } from '../../core/models/user';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
   ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
 })
 export class AddUserDialogComponent implements OnInit {
 
+  userService = inject(UserService);
+
   public firstNameCtrl = new FormControl('', Validators.required);
   public lastNameCtrl = new FormControl('', Validators.required);
   public userNameCtrl = new FormControl('');
+  public passwordCtrl = new FormControl('');
+  public emailCtrl = new FormControl('');
+  public phoneNumberCtrl = new FormControl('');
 
 
   public userForm = new FormGroup({
     firstName: this.firstNameCtrl,
     lastName: this.lastNameCtrl,
     userName: this.userNameCtrl,
+    password: this.passwordCtrl,
+    email: this.emailCtrl,
+    phoneNumber: this.phoneNumberCtrl,
   })
 
   constructor( @Inject(MAT_DIALOG_DATA) public user: IUser, private _matDialogRef: MatDialogRef<any>) {}
@@ -42,5 +53,28 @@ export class AddUserDialogComponent implements OnInit {
       this.userNameCtrl.setValue(this.user.userName);
     }
   }
+
+  public submitForm() {
+    const data = {
+      firstName: this.userForm.get('firstName')?.value,
+      lastName: this.userForm.get('lastName')?.value,
+      userName: this.userForm.get('userName')?.value,
+      password: this.userForm.get('password')?.value,
+      email: this.userForm.get('email')?.value,
+      phoneNumber: this.userForm.get('phoneNumber')?.value,
+      roles: ["2e435039-91b0-4752-8f2e-517f2f186def"]
+    }
+
+    this.user
+    ?
+    this.userService.editUserById(data as unknown as IUser).subscribe({
+      next: (user) => console.log(user)
+    })
+    : this.userService.addUser(data as unknown as IUser).subscribe({
+      next: (user) => console.log(user)
+    });
+    this.userForm.reset();
+    this._matDialogRef.close();
+}
 
 }

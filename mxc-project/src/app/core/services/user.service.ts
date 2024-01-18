@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { IUser } from '../models/user';
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -13,12 +15,20 @@ export class UserService {
 
   constructor() { }
 
-  public getUserList() {
+  public getUserList(): Observable<any> {
     return this.http.get(`${this.baseUrl}user`);
   }
 
-  public getUserById(id: string) {
+  public getUserById(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}user/${id}`);
+  }
+
+  public addUser(user: IUser) {
+    return this.http.post(`${this.baseUrl}user`, user);
+  }
+
+  public editUserById(user: IUser) {
+    return this.http.patch(`${this.baseUrl}user/${user.id}`, user);
   }
 
   public removeUserById(id: string) {

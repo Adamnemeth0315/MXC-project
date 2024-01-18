@@ -52,23 +52,26 @@ export class UserListComponent implements OnInit {
     })
 
     console.log(this.authService.currentUserValue);
-  }
+  };
 
   public onPaginateChange(event: PageEvent) {
     this.pageIndex = event.pageIndex + 1;
+  };
 
-  }
+  openAddUserDialog(): void {
+    this.matDialog.open(AddUserDialogComponent, { width: '600px' })
+  };
 
   public editUserById(id: string) {
     this.userService.getUserById(id).subscribe({
       next: (user) => this.matDialog.open(AddUserDialogComponent, { data: user, width: '600px' })
     })
-  }
+  };
 
   public deleteUser(id: string) {
    this.userService.removeUserById(id).subscribe({
     next: () => console.log('Deleted done!')
    })
-  }
+  };
 
 }
