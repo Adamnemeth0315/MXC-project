@@ -28,7 +28,7 @@ export class UserService {
   }
 
   public editUserById(user: IUser) {
-    return this.http.patch(`${this.baseUrl}user/${user.id}`, user);
+    return this.http.put(`${this.baseUrl}user/${user.id}`, user);
   }
 
   public removeUserById(id: string) {

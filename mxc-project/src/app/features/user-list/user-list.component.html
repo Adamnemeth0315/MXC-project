@@ -4,29 +4,39 @@
     <button class="btn btn-primary" (click)="openAddUserDialog()">Új munkatárs hozzadása</button>
   </div>
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource"  class="users-table__container">
+    <table mat-table [dataSource]="dataSource" class="users-table__container">
 
       <!-- Username Column -->
       <ng-container matColumnDef="userName">
         <th mat-header-cell *matHeaderCellDef>
-            Felhasználónév
+          Felhasználónév
         </th>
-        <td mat-cell *matCellDef="let element" ó>  {{element.userName}}  </td>
+        <td mat-cell *matCellDef="let element" ó> {{element.userName}} </td>
       </ng-container>
 
       <!-- CreatedAt Column -->
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>
-            Létrehozás dátuma
+          Létrehozás dátuma
         </th>
-        <td mat-cell *matCellDef="let element">  {{element.createdAt}}  </td>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
       </ng-container>
 
-      <!-- Action Column -->
-      <ng-container matColumnDef="Action">
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef>
-          <span >Törlés </span> </th>
-        <td mat-cell *matCellDef="let element"><mat-icon class="user-table__delete-icon" (click)="deleteUser(element)">delete</mat-icon>
+          Szerkesztés </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="user-table__icon" (click)="editUserById(element.id)">edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>
+          Törlés </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="user-table__icon" (click)="deleteUser(element)">delete</mat-icon>
         </td>
       </ng-container>
 
@@ -37,14 +47,9 @@
   </div>
 
   <div class="users-table__paginator">
-    <mat-paginator
-      [length]="dataSource.length"
-      [pageSize]="5"
-      [pageSizeOptions]="[5, 10]"
-      aria-label="Select page"
-      (page)="onPaginateChange($event)"
-      >
-  </mat-paginator>
+    <mat-paginator [length]="dataSource.length" [pageSize]="5" [pageSizeOptions]="[5, 10]" aria-label="Select page"
+      (page)="onPaginateChange($event)">
+    </mat-paginator>
   </div>
 
 </div>

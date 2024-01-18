@@ -15,11 +15,13 @@ export class NavigationComponent implements OnInit {
   router = inject(Router)
 
   public showLogout = false;
+  public userName: string = '';
 
   ngOnInit(): void {
     this.authService.currentUserSubject$.subscribe((user) => {
       if (user) {
         this.showLogout = true;
+        this.userName = user.userName;
       } else {
         this.showLogout = false;
       }

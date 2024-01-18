@@ -1,9 +1,12 @@
 <nav class="navigation">
     <div class="d-flex justify-content-between container-fluid p-3">
       <img class="navigation__logo" src="/assets/logo/logo_transparent_background.png" alt="mxc-logo">
-      <a *ngIf="showLogout" class="navigation__logout-btn" svgIcon="logout" (click)="logout()">
-        Logout
-      </a>
+      <div *ngIf="showLogout" class="navigation__end">
+        <span>Üdvözöljük: <strong>{{userName}}</strong>!</span>
+        <a class="navigation__logout-btn" svgIcon="logout" (click)="logout()">
+          Kijelentkezés
+        </a>
+      </div>
   </div>
 </nav>
 

@@ -4,6 +4,6 @@ export interface IUser {
   lastName: string;
   email: string;
   userName: string;
-  phoneNumber?: string;
+  phoneNumber: string | null;
   createdAt: Date;
 }

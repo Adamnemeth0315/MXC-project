@@ -1,7 +1,7 @@
 <div class="user-edit">
   <div class="user-edit__header" mat-dialog-header>
     <h1>{{'User Name'}}</h1>
-    <mat-icon mat-dialog-close>close</mat-icon>
+    <mat-icon (click)="closeDialog()">close</mat-icon>
     </div>
   <div mat-dialog-content>
     <form class="form" [formGroup]="userForm" (ngSubmit)="submitForm()">

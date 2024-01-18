@@ -1,9 +1,6 @@
 <div mat-dialog-header class="d-flex justify-content-center p-2">
   <h1 class="text-[20px] font-bold">Biztosan törli a munkatársat?</h1>
-
-  <button (click)="closeDialog()">
-    <mat-icon>close</mat-icon>
-  </button>
+  <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <div mat-dialog-content class="flex flex-col items-center p-[15px] gap-[20px]">
   <span class="text-[18px] font-bold">A törlés gombra kattintva a munaktárs kitörlődik a rendszerből</span>

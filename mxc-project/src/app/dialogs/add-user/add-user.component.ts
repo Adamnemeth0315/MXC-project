@@ -28,9 +28,9 @@ export class AddUserDialogComponent implements OnInit {
 
   public firstNameCtrl = new FormControl('', Validators.required);
   public lastNameCtrl = new FormControl('', Validators.required);
-  public userNameCtrl = new FormControl('');
-  public passwordCtrl = new FormControl('');
-  public emailCtrl = new FormControl('');
+  public userNameCtrl = new FormControl('', Validators.required);
+  public passwordCtrl = new FormControl('', Validators.required);
+  public emailCtrl = new FormControl('', Validators.required);
   public phoneNumberCtrl = new FormControl('');
 
 
@@ -51,11 +51,18 @@ export class AddUserDialogComponent implements OnInit {
       this.firstNameCtrl.setValue(this.user.firstName);
       this.lastNameCtrl.setValue(this.user.lastName);
       this.userNameCtrl.setValue(this.user.userName);
+      this.emailCtrl.setValue(this.user.email);
+      this.phoneNumberCtrl.setValue(this.user.phoneNumber);
     }
+  }
+
+  public closeDialog() {
+    this._matDialogRef.close();
   }
 
   public submitForm() {
     const data = {
+      id: this.user.id,
       firstName: this.userForm.get('firstName')?.value,
       lastName: this.userForm.get('lastName')?.value,
       userName: this.userForm.get('userName')?.value,

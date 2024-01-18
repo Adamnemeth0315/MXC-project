@@ -1,11 +1,17 @@
 .navigation {
 
+  &__end {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   &__logout-btn {
     color: black;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
   }
-
 
   &__logo {
     cursor: pointer;

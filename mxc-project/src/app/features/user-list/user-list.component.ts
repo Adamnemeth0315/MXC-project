@@ -42,7 +42,8 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = [
     'userName',
     'createdAt',
-    'Action',
+    'edit',
+    'delete',
   ];
   dataSource = [];
 
