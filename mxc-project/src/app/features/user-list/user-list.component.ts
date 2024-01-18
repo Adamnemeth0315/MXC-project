@@ -9,7 +9,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { AddUserDialogComponent } from '../../shared/add-user/add-user.component';
+import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.component';
+import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
+import { IUser } from '../../core/models/user';
 
 
 @Component({
@@ -68,10 +70,8 @@ export class UserListComponent implements OnInit {
     })
   };
 
-  public deleteUser(id: string) {
-   this.userService.removeUserById(id).subscribe({
-    next: () => console.log('Deleted done!')
-   })
+  public deleteUser(user: IUser) {
+    this.matDialog.open(DeleteUserDialogComponent, { data: user, width: '600px' })
   };
 
 }
