@@ -14,6 +14,14 @@ export class UserService {
   constructor() { }
 
   public getUserList() {
-    return this.http.get(`${this.baseUrl}user`)
+    return this.http.get(`${this.baseUrl}user`);
+  }
+
+  public getUserById(id: string) {
+    return this.http.get(`${this.baseUrl}user/${id}`);
+  }
+
+  public removeUserById(id: string) {
+    return this.http.delete(`${this.baseUrl}user/${id}`);
   }
 }
