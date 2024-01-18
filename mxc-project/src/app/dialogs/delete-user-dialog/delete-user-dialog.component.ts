@@ -25,7 +25,7 @@ export class DeleteUserDialogComponent {
 
   public deleteTodo(id: string) {
     this.usersService.removeUserById(id).subscribe({
-      next: () => console.log('deleted done! ')
+      next: () => this.snackBar.open('A munkatárs sikeresen törölve lett!', 'OK', { duration: 10000 })
     })
     this._matDialogRef.close();
   }

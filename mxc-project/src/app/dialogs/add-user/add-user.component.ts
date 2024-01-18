@@ -62,7 +62,6 @@ export class AddUserDialogComponent implements OnInit {
 
   public submitForm() {
     const data = {
-      id: this.user.id,
       firstName: this.userForm.get('firstName')?.value,
       lastName: this.userForm.get('lastName')?.value,
       userName: this.userForm.get('userName')?.value,
@@ -74,7 +73,7 @@ export class AddUserDialogComponent implements OnInit {
 
     this.user
     ?
-    this.userService.editUserById(data as unknown as IUser).subscribe({
+    this.userService.editUserById({id: this.user.id, ...data} as unknown as IUser).subscribe({
       next: (user) => console.log(user)
     })
     : this.userService.addUser(data as unknown as IUser).subscribe({
