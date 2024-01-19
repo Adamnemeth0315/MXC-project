@@ -23,7 +23,7 @@ export class DeleteUserDialogComponent {
     this._matDialogRef.close();
   }
 
-  public deleteTodo(id: string) {
+  public deleteUser(id: string) {
     this.userService.removeUserById(id).subscribe({
       next: () => {
         this.userService.getUserList();

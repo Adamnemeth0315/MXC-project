@@ -6,13 +6,11 @@ import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.componen
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
 import { IUser } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
-import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-// import { UserState } from '../../core/states/user.state';
 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -43,7 +41,6 @@ export class UserListComponent implements OnInit {
   public usersLength = 0;
   usersList$!: Observable<IUser[]>;
   public pageIndex = 0;
-  private _dialogOpened = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   displayedColumns: string[] = [
@@ -60,11 +57,6 @@ export class UserListComponent implements OnInit {
         this.dataSource = users.results
       }
     })
-
-    /* this.usersList$ = this.store.select(UserState.listUsers);
-    this.usersList$.subscribe({
-      next: (users) => console.log(users)
-    }) */
   };
 
   public onPaginateChange(event: PageEvent) {
@@ -73,7 +65,6 @@ export class UserListComponent implements OnInit {
 
   openAddUserDialog(): void {
     this.dialogService.openDialog(AddUserDialogComponent);
-    // this.matDialog.open(AddUserDialogComponent, { width: '600px' })
   };
 
   public editUserById(id: string) {
