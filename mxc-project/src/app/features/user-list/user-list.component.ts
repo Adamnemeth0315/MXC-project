@@ -71,7 +71,9 @@ export class UserListComponent implements OnInit {
 
   public editUserById(id: string) {
     this.userService.getUserById(id).subscribe({
-      next: (user) => this.dialogService.openDialog(AddUserDialogComponent, '600px', user)
+      next: (user) => {
+        const dialogRef = this.dialogService.openDialog(AddUserDialogComponent, '600px', user);
+      }
     })
   };
 

@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { IUser } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
 
@@ -18,6 +19,7 @@ import { UserService } from '../../core/services/user.service';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSnackBarModule,
   ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
@@ -25,6 +27,7 @@ import { UserService } from '../../core/services/user.service';
 export class AddUserDialogComponent implements OnInit {
 
   userService = inject(UserService);
+  snackBar = inject(MatSnackBar);
 
   public firstNameCtrl = new FormControl('', Validators.required);
   public lastNameCtrl = new FormControl('', Validators.required);
@@ -74,10 +77,11 @@ export class AddUserDialogComponent implements OnInit {
     this.user
     ?
     this.userService.editUserById({id: this.user.id, ...data} as unknown as IUser).subscribe({
-      next: (user) => console.log(user)
+      next: () => 
+        this.snackBar.open('A munkatárs sikeresen módosítva lett!', 'OK', { duration: 10000 })
     })
     : this.userService.addUser(data as unknown as IUser).subscribe({
-      next: (user) => console.log(user)
+      next: () => this.snackBar.open('Az új munkatárs sikeresen hozzá lett adva listához!', 'OK', { duration: 10000 })
     });
     this.userForm.reset();
     this._matDialogRef.close();
