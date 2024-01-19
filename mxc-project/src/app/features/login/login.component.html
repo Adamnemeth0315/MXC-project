@@ -1,9 +1,12 @@
 <div class="login">
-  <div class="d-flex justify-content-start w-100 px-4">
-    <h1 class="login__title">Bejelentkezés</h1>
+  <div class="d-flex justify-content-start w-100">
+    <h1 class="text-uppercase"><mat-icon class="login-icon">login</mat-icon>  Bejelentkezés</h1>
+  </div>
+  <div *ngIf="hasError" class="alert alert-danger w-100" role="alert">
+    A belépés során hiba történt!
   </div>
   <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
-    <div class="d-flex flex-column p-2">
+    <div class="d-flex flex-column">
 
       <mat-form-field appearance="outline">
         <mat-label>Felhasználónév</mat-label>
@@ -18,7 +21,7 @@
         </mat-icon>
       </mat-form-field>
 
-      <button type="submit" class="btn btn-primary">Bejelentkezés</button>
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Bejelentkezés</button>
     </div>
   </form>
 </div>

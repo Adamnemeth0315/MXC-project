@@ -77,11 +77,16 @@ export class AddUserDialogComponent implements OnInit {
     this.user
     ?
     this.userService.editUserById({id: this.user.id, ...data} as unknown as IUser).subscribe({
-      next: () => 
+      next: () => {
+        this.userService.getUserList();
         this.snackBar.open('A munkatárs sikeresen módosítva lett!', 'OK', { duration: 10000 })
+      }
     })
     : this.userService.addUser(data as unknown as IUser).subscribe({
-      next: () => this.snackBar.open('Az új munkatárs sikeresen hozzá lett adva listához!', 'OK', { duration: 10000 })
+      next: () =>  {
+        this.userService.getUserList();
+        this.snackBar.open('Az új munkatárs sikeresen hozzá lett adva listához!', 'OK', { duration: 10000 })
+      }
     });
     this.userForm.reset();
     this._matDialogRef.close();

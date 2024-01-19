@@ -2,17 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { AuthService } from '../../core/services/auth.service';
-
-
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
 import { IUser } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+// import { UserState } from '../../core/states/user.state';
+
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -38,6 +40,8 @@ export class UserListComponent implements OnInit {
 
 
   users$: any = [];
+  public usersLength = 0;
+  usersList$!: Observable<IUser[]>;
   public pageIndex = 0;
   private _dialogOpened = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -57,7 +61,10 @@ export class UserListComponent implements OnInit {
       }
     })
 
-    console.log(this.authService.currentUserValue);
+    /* this.usersList$ = this.store.select(UserState.listUsers);
+    this.usersList$.subscribe({
+      next: (users) => console.log(users)
+    }) */
   };
 
   public onPaginateChange(event: PageEvent) {
@@ -72,7 +79,7 @@ export class UserListComponent implements OnInit {
   public editUserById(id: string) {
     this.userService.getUserById(id).subscribe({
       next: (user) => {
-        const dialogRef = this.dialogService.openDialog(AddUserDialogComponent, '600px', user);
+        this.dialogService.openDialog(AddUserDialogComponent, '600px', user);
       }
     })
   };

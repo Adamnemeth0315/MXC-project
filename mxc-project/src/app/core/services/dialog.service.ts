@@ -20,9 +20,7 @@ export class DialogService {
         data: data
       });
 
-      dialogRef.afterClosed().pipe(
-        mergeMap(() => this.userService.getUserList())
-      ).subscribe(() => {
+      dialogRef.afterClosed().subscribe(() => {
         this._dialogOpened = false;
       });
     }

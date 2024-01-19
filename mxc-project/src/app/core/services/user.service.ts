@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../models/user';
 import { ConfigService } from './config.service';
 
@@ -12,11 +12,19 @@ export class UserService {
   configService = inject(ConfigService);
 
   baseUrl = `${this.configService.baseUrl}admin/`;
+  private userList$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>([]);
 
   constructor() { }
 
-  public getUserList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}user`);
+  public getUserList(): Observable<IUser[]> {
+    this.http.get(`${this.baseUrl}user`).subscribe({
+      next: (userList) => {
+        this.userList$.next(userList as IUser[])
+      },
+      error: (error) => console.error(error)
+    });
+
+    return this.userList$.asObservable();;
   }
 
   public getUserById(id: string): Observable<any> {

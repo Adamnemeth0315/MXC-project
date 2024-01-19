@@ -14,7 +14,7 @@ import { UserService } from '../../core/services/user.service';
   styleUrl: './delete-user-dialog.component.scss'
 })
 export class DeleteUserDialogComponent {
-  usersService = inject(UserService);
+  userService = inject(UserService);
   snackBar = inject(MatSnackBar);
 
   constructor( @Inject(MAT_DIALOG_DATA) public user: IUser, private _matDialogRef: MatDialogRef<any>) {}
@@ -24,8 +24,11 @@ export class DeleteUserDialogComponent {
   }
 
   public deleteTodo(id: string) {
-    this.usersService.removeUserById(id).subscribe({
-      next: () => this.snackBar.open('A munkatárs sikeresen törölve lett!', 'OK', { duration: 10000 })
+    this.userService.removeUserById(id).subscribe({
+      next: () => {
+        this.userService.getUserList();
+        this.snackBar.open('A munkatárs sikeresen törölve lett!', 'OK', { duration: 10000 })
+      }
     })
     this._matDialogRef.close();
   }
