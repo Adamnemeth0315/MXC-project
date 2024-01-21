@@ -13,6 +13,7 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatPaginatorModule,
     MatIconModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    TranslateModule
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
@@ -59,7 +61,7 @@ export class UserListComponent implements OnInit {
     })
   };
 
-  public onPaginateChange(event: PageEvent) {
+  public onPaginateChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex + 1;
   };
 
@@ -67,7 +69,7 @@ export class UserListComponent implements OnInit {
     this.dialogService.openDialog(AddUserDialogComponent);
   };
 
-  public editUserById(id: string) {
+  public openEditUserDialog(id: string): void {
     this.userService.getUserById(id).subscribe({
       next: (user) => {
         this.dialogService.openDialog(AddUserDialogComponent, '600px', user);
@@ -75,7 +77,7 @@ export class UserListComponent implements OnInit {
     })
   };
 
-  public deleteUser(user: IUser) {
+  public deleteUser(user: IUser): void {
     this.dialogService.openDialog(DeleteUserDialogComponent, '900px', user);
   };
 

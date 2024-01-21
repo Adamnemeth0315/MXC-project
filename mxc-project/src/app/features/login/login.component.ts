@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ import { Router } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    HttpClientModule],
+    HttpClientModule,
+    TranslateModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -33,15 +36,15 @@ export class LoginComponent {
 
 
   public loginForm = new FormGroup({
-    userName: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).+$')])
+    userName: new FormControl<string>('', Validators.required),
+    password: new FormControl<string>('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).+$')])
   });
 
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   };
 
-  public login() {
+  public login(): void {
     const user = this.loginForm.value as ILoginUser;
     this.authService.login(user).subscribe({
       next: () => {

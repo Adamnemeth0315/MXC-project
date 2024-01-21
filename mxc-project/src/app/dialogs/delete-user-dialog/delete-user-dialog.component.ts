@@ -19,11 +19,11 @@ export class DeleteUserDialogComponent {
 
   constructor( @Inject(MAT_DIALOG_DATA) public user: IUser, private _matDialogRef: MatDialogRef<any>) {}
 
-  public closeDialog() {
+  public closeDialog(): void {
     this._matDialogRef.close();
   }
 
-  public deleteUser(id: string) {
+  public deleteUser(id: string): void {
     this.userService.removeUserById(id).subscribe({
       next: () => {
         this.userService.getUserList();

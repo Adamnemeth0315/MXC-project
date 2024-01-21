@@ -1,27 +1,27 @@
 <div class="login">
   <div class="d-flex justify-content-start w-100">
-    <h1 class="text-uppercase"><mat-icon class="login-icon">login</mat-icon>  Bejelentkezés</h1>
+    <h1 class="text-uppercase"><mat-icon class="login-icon">login</mat-icon>{{'login.title' | translate}}</h1>
   </div>
   <div *ngIf="hasError" class="alert alert-danger w-100" role="alert">
-    A belépés során hiba történt!
+    {{'login.error-message' | translate}}
   </div>
   <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="d-flex flex-column">
 
       <mat-form-field appearance="outline">
-        <mat-label>Felhasználónév</mat-label>
+        <mat-label>{{'login.username-label' | translate}}</mat-label>
         <input formControlName="userName" matInput type="text" placeholder="Add meg a felhasználó neved">
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Jelszó</mat-label>
+        <mat-label>{{'login.password-label' | translate}}</mat-label>
         <input formControlName="password" matInput type="{{hidePassword ? 'password' : 'text'}}"
           placeholder="Add meg a jelszavad">
         <mat-icon class="icon" matSuffix (click)="togglePasswordVisibility()">{{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
       </mat-form-field>
 
-      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Bejelentkezés</button>
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">{{'login.login-btn' | translate}}</button>
     </div>
   </form>
 </div>

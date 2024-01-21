@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { IUser } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
 
@@ -20,6 +21,7 @@ import { UserService } from '../../core/services/user.service';
     MatInputModule,
     MatIconModule,
     MatSnackBarModule,
+    TranslateModule
   ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
@@ -59,11 +61,11 @@ export class AddUserDialogComponent implements OnInit {
     }
   }
 
-  public closeDialog() {
+  public closeDialog(): void {
     this._matDialogRef.close();
   }
 
-  public submitForm() {
+  public submitForm(): void {
     const data = {
       firstName: this.userForm.get('firstName')?.value,
       lastName: this.userForm.get('lastName')?.value,

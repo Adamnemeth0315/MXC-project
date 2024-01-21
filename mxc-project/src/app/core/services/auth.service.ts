@@ -23,7 +23,6 @@ export class AuthService {
   currentUserSubject$: BehaviorSubject<ILoginUser | null> = new BehaviorSubject<ILoginUser | null>(null);
   public loginResponse: ILoginResponse = {access_token: '', token_type: '', expires_in: 0}
 
-  constructor() { }
 
   get currentUserValue(): any {
     return this.currentUserSubject$.value;
@@ -32,7 +31,6 @@ export class AuthService {
   getLocalStorageData(): Observable<boolean> {
     return of(localStorage[this.configService.storageName]).pipe(
       switchMap((localStorageData) => {
-        console.log(localStorageData);
         if (localStorageData) {
           this.loginResponse = JSON.parse(localStorageData);
           return this.getUserMe(this.loginResponse.access_token);

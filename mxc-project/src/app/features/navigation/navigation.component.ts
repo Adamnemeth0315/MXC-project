@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })

@@ -1,0 +1,38 @@
+{
+  "navigation": {
+    "welcome": "Üdvözöljük:",
+    "logout": "Kijelentkezés"
+  },
+  "login": {
+    "title": "Bejelentkezés",
+    "username-label": "Felhasználónév",
+    "password-label": "Jelszó",
+    "error-message": "A bejelentkezés során hiba történt!",
+    "login-btn": "Bejelentkezés"
+  },
+  "user-list": {
+    "title": "Bejelentkezés",
+    "user-table-header": {
+      "username": "Felhasználó név",
+      "created-at": "Létrehozás dátuma",
+      "edit": "Szerkesztés",
+      "delete": "Tőrlés"
+    },
+    "add-user-btn": "Új munkatárs hozzáadása"
+  },
+  "add-user-dialog": {
+    "add-user-title": "Adatok",
+    "form":{
+      "first-name-label": "Keresztnév",
+      "last-name-label": "Vezetéknév",
+      "username-label": "Felhasználónév",
+      "password-label": "Jelszó",
+      "email-label": "Email",
+      "phone-number-label": "Telefonszám"
+    },
+    "submit-btn": "Mentés"
+  },
+  "delete-user-dialog": {
+
+  }
+}

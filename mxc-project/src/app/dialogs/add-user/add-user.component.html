@@ -1,6 +1,6 @@
 <div class="user-edit">
   <div class="user-edit__header" mat-dialog-header>
-    <h1>{{'User Name'}}</h1>
+    <h1>{{'add-user-dialog.add-user-title' | translate}}</h1>
     <mat-icon class="user-edit__icon" (click)="closeDialog()">close</mat-icon>
     </div>
   <div mat-dialog-content>
@@ -8,41 +8,41 @@
       <div class="d-flex flex-column p-2">
 
         <mat-form-field appearance="outline">
-          <mat-label>Keresztnév</mat-label>
+          <mat-label>{{'add-user-dialog.form.first-name-label' | translate}}</mat-label>
           <input formControlName="firstName" matInput type="text" placeholder="Add meg a keresztneved">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Vezetéknév</mat-label>
+          <mat-label>{{'add-user-dialog.form.last-name-label' | translate}}</mat-label>
           <input formControlName="lastName" matInput type="text"
             placeholder="Add meg a vezetékneved">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Felhasználó név</mat-label>
+          <mat-label>{{'add-user-dialog.form.username-label' | translate}}</mat-label>
           <input formControlName="userName" matInput type="text"
             placeholder="Add meg a felhasználó nevet">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Jelszó</mat-label>
+          <mat-label>{{'add-user-dialog.form.password-label' | translate}}</mat-label>
           <input formControlName="password" matInput type="password"
             placeholder="Add meg a felhasználó jelszavát">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
+          <mat-label>{{'add-user-dialog.form.email-label' | translate}}</mat-label>
           <input formControlName="email" matInput type="text"
             placeholder="Add meg a felhasználó email címét">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Telefonszám</mat-label>
+          <mat-label>{{'add-user-dialog.form.phone-number-label' | translate}}</mat-label>
           <input formControlName="phoneNumber" matInput type="text"
             placeholder="Add meg a felhasználó telefonszámát">
         </mat-form-field>
 
-        <button type="submit" class="btn btn-primary">Szerkesztés</button>
+        <button type="submit" class="btn btn-primary">{{'add-user-dialog.submit-btn' | translate}}</button>
       </div>
     </form>
 
