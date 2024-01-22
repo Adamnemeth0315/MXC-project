@@ -33,6 +33,9 @@
     "submit-btn": "Mentés"
   },
   "delete-user-dialog": {
-
+    "title": "Biztosan törli a munkatársat?",
+    "description": "A törlés gombra kattintva a munkatárs kitörlődik a rendszerből!",
+    "cancel-btn": "Mégse",
+    "delete-btn": "Törlés"
   }
 }

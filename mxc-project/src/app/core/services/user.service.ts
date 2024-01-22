@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../models/user';
@@ -13,10 +13,24 @@ export class UserService {
 
   baseUrl = `${this.configService.baseUrl}admin/`;
   private userList$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>([]);
+  public userListLength!: Observable<number>;
+  public queryParams = {
+    order: 'asc',
+    pageIndex: 0,
+    limit: 5,
+    orderby: 'UserName',
+  };
 
   public getUserList(): Observable<IUser[]> {
-    this.http.get<IUser[]>(`${this.baseUrl}user`).subscribe({
+    let params = new HttpParams()
+    .set('order', this.queryParams.order)
+    .set('pageIndex', this.queryParams.pageIndex.toString())
+    .set('limit', this.queryParams.limit.toString())
+    .set('orderby', this.queryParams.orderby);
+
+    this.http.get<IUser[]>(`${this.baseUrl}user`, {params}).subscribe({
       next: (userList) => {
+        console.log(userList);
         this.userList$.next(userList)
       },
       error: (error) => console.error(error)

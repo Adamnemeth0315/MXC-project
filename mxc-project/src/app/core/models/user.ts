@@ -7,3 +7,8 @@ export interface IUser {
   phoneNumber: string | null;
   createdAt: Date;
 }
+
+export interface IUserListResponse {
+  results: IUser[];
+  resultsLength: number;
+}

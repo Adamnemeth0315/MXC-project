@@ -8,13 +8,29 @@
 
       <!-- Username Column -->
       <ng-container matColumnDef="userName">
-        <th mat-header-cell *matHeaderCellDef> {{'user-list.user-table-header.username' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>{{'user-list.user-table-header.username' | translate}}</span>
+              <div class="d-flex flex-column">
+                <mat-icon (click)="sortUsers('UserName', 'asc')" class="sort-icon">arrow_upward</mat-icon>
+                <mat-icon (click)="sortUsers('UserName', 'desc')" class="sort-icon">arrow_downward</mat-icon>
+              </div>
+            </div>
+          </th>
         <td mat-cell *matCellDef="let element" ó> {{element.userName}} </td>
       </ng-container>
 
       <!-- CreatedAt Column -->
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef> {{'user-list.user-table-header.created-at' | translate}} </th>
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>{{'user-list.user-table-header.created-at' | translate}}</span>
+            <div class="d-flex flex-column align-items-center">
+              <mat-icon (click)="sortUsers('CreatedAt', 'asc')" class="sort-icon">arrow_upward</mat-icon>
+              <mat-icon (click)="sortUsers('CreatedAt', 'desc')" class="sort-icon">arrow_downward</mat-icon>
+            </div>
+          </div>
+        </th>
         <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
       </ng-container>
 
@@ -41,7 +57,7 @@
   </div>
 
   <div class="users-table__paginator">
-    <mat-paginator [length]="dataSource.length" [pageSize]="5" [pageSizeOptions]="[5, 10]" aria-label="Select page"
+    <mat-paginator [length]="usersLength" [pageSize]="5" [pageSizeOptions]="[5, 10]" aria-label="Select page"
       (page)="onPaginateChange($event)">
     </mat-paginator>
   </div>

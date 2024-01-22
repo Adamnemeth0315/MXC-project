@@ -1,11 +1,11 @@
-<div mat-dialog-header class="d-flex justify-content-center p-2">
-  <h1 class="text-[20px] font-bold">Biztosan törli a munkatársat?</h1>
+<div mat-dialog-header class="d-flex justify-content-between p-2 w-100">
+  <h1 class="text-[20px] font-bold">{{'delete-user-dialog.title' | translate}}</h1>
   <mat-icon (click)="closeDialog()">close</mat-icon>
 </div>
 <div mat-dialog-content class="flex flex-col items-center p-[15px] gap-[20px]">
-  <span class="text-[18px] font-bold">A törlés gombra kattintva a munaktárs kitörlődik a rendszerből</span>
+  <span class="text-[18px] font-bold">{{'delete-user-dialog.description' | translate}}</span>
   <div class="flex flex-row gap-[10px]">
-    <button class="btn btn-primary" (click)="closeDialog()">Mégse</button>
-    <button class="btn btn-danger" (click)="deleteUser(user.id)">Törlés</button>
+    <button class="btn btn-primary" (click)="closeDialog()">{{'delete-user-dialog.cancel-btn' | translate}}</button>
+    <button class="btn btn-danger" (click)="deleteUser(user.id)">{{'delete-user-dialog.delete-btn' | translate}}</button>
   </div>
 </div>

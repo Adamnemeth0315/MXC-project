@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class LoginComponent {
 
   authService = inject(AuthService);
+  userService = inject(UserService);
   route = inject(Router)
 
   public hidePassword = true;
@@ -48,7 +50,7 @@ export class LoginComponent {
     const user = this.loginForm.value as ILoginUser;
     this.authService.login(user).subscribe({
       next: () => {
-        this.route.navigate(['/users']);
+        this.route.navigate(['/users'], {queryParams: this.userService.queryParams});
         this.hasError = false;
       },
       error: () => this.hasError = true

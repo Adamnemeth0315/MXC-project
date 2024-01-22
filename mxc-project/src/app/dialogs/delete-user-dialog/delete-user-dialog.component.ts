@@ -3,13 +3,14 @@ import { Component, inject, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { IUser } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-delete-user-dialog',
   standalone: true,
-  imports: [CommonModule, MatSnackBarModule, MatIconModule],
+  imports: [CommonModule, MatSnackBarModule, MatIconModule, TranslateModule],
   templateUrl: './delete-user-dialog.component.html',
   styleUrl: './delete-user-dialog.component.scss'
 })
