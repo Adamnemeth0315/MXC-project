@@ -97,13 +97,13 @@ export class UserListComponent implements OnInit {
   public openEditUserDialog(id: string): void {
     this.userService.getUserById(id).subscribe({
       next: (user) => {
-        this.dialogService.openDialog(AddUserDialogComponent, '600px', user);
+        this.dialogService.openDialog(AddUserDialogComponent, user);
       }
     })
   };
 
   public deleteUser(user: IUser): void {
-    this.dialogService.openDialog(DeleteUserDialogComponent, '900px', user);
+    this.dialogService.openDialog(DeleteUserDialogComponent, user);
   };
 
   public sortUsers(orderby: string, order: string): void {

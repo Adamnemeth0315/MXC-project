@@ -11,12 +11,12 @@ export class DialogService {
   userService = inject(UserService)
   private _dialogOpened = false;
 
-  public openDialog(dialog: any, width='600px', data?: any) {
+  public openDialog(dialog: any, data?: any) {
     if (!this._dialogOpened) {
       this._dialogOpened = true;
 
       const dialogRef = this.matDialog.open(dialog, {
-        width,
+        width: '600px',
         data: data
       });
 
