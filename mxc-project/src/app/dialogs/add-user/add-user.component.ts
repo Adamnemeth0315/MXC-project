@@ -28,8 +28,8 @@ import { UserService } from '../../core/services/user.service';
 })
 export class AddUserDialogComponent implements OnInit {
 
-  private userService = inject(UserService);
-  private snackBar = inject(MatSnackBar);
+  private _userService = inject(UserService);
+  private _snackBar = inject(MatSnackBar);
 
   public firstNameCtrl = new FormControl('', Validators.required);
   public lastNameCtrl = new FormControl('', Validators.required);
@@ -78,16 +78,16 @@ export class AddUserDialogComponent implements OnInit {
 
     this.user
     ?
-    this.userService.editUserById({id: this.user.id, ...data} as unknown as IUser).subscribe({
+    this._userService.editUserById({id: this.user.id, ...data} as unknown as IUser).subscribe({
       next: () => {
-        this.userService.getUserList();
-        this.snackBar.open('A munkatárs sikeresen módosítva lett!', 'OK', { duration: 10000 })
+        this._userService.getUserList();
+        this._snackBar.open('A munkatárs sikeresen módosítva lett!', 'OK', { duration: 10000 })
       }
     })
-    : this.userService.addUser(data as unknown as IUser).subscribe({
+    : this._userService.addUser(data as unknown as IUser).subscribe({
       next: () =>  {
-        this.userService.getUserList();
-        this.snackBar.open('Az új munkatárs sikeresen hozzá lett adva listához!', 'OK', { duration: 10000 })
+        this._userService.getUserList();
+        this._snackBar.open('Az új munkatárs sikeresen hozzá lett adva listához!', 'OK', { duration: 10000 })
       }
     });
     this.userForm.reset();

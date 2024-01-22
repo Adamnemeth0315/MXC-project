@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -12,14 +11,13 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent implements OnInit {
-  authService = inject(AuthService);
-  router = inject(Router)
+  private _authService = inject(AuthService);
 
   public showLogout = false;
   public userName: string = '';
 
   ngOnInit(): void {
-    this.authService.currentUserSubject$.subscribe((user) => {
+    this._authService.currentUserSubject$.subscribe((user) => {
       if (user) {
         this.showLogout = true;
         this.userName = user.userName;
@@ -32,7 +30,7 @@ export class NavigationComponent implements OnInit {
   public logout() {
     // Since it didn't run oninit at logout, I reset it manually here
     this.showLogout = false;
-    this.authService.logout()
+    this._authService.logout()
   }
 
 }

@@ -6,15 +6,15 @@ import { LoadingService } from "../services/loading.service";
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
-  private loadingService = inject(LoadingService)
+  private _loadingService = inject(LoadingService)
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
 
-    this.loadingService.showLoader();
+    this._loadingService.showLoader();
 
     // This is responsible for setting loading to false in loadingService when the data is received.
     return next.handle(request).pipe(
-      finalize(() => this.loadingService.hideLoader())
+      finalize(() => this._loadingService.hideLoader())
     );
     }
 }

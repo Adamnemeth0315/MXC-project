@@ -3,13 +3,16 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ILoginUser } from '../../core/models/login';
 import { AuthService } from '../../core/services/auth.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../core/services/user.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +25,7 @@ import { UserService } from '../../core/services/user.service';
     MatInputModule,
     MatIconModule,
     HttpClientModule,
+    FontAwesomeModule,
     TranslateModule,
   ],
   templateUrl: './login.component.html',
@@ -29,12 +33,14 @@ import { UserService } from '../../core/services/user.service';
 })
 export class LoginComponent {
 
-  private authService = inject(AuthService);
-  private userService = inject(UserService);
-  private route = inject(Router)
+  private _authService = inject(AuthService);
+  private _userService = inject(UserService);
+  private _route = inject(Router)
 
   public hidePassword = true;
   public hasError = false;
+
+  public faArrowRightFromBracket = faArrowRightFromBracket;
 
 
   public loginForm = new FormGroup({
@@ -48,9 +54,9 @@ export class LoginComponent {
 
   public login(): void {
     const user = this.loginForm.value as ILoginUser;
-    this.authService.login(user).subscribe({
+    this._authService.login(user).subscribe({
       next: () => {
-        this.route.navigate(['/users'], {queryParams: this.userService.queryParams});
+        this._route.navigate(['/users'], {queryParams: this._userService.queryParams});
         this.hasError = false;
       },
       error: () => this.hasError = true

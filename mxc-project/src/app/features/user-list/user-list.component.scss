@@ -2,6 +2,11 @@
   max-width: 100%;
   margin: 20px 40px;
 
+  &__title {
+    font-weight: 700;
+    color: #3f51b5;
+  }
+
   &__btn-group {
     display: flex;
   }

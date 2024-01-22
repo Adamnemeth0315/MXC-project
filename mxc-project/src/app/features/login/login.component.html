@@ -1,6 +1,6 @@
 <div class="login">
   <div class="d-flex justify-content-start w-100">
-    <h1 class="text-uppercase"><mat-icon class="login-icon">login</mat-icon>{{'login.title' | translate}}</h1>
+    <h1 class="text-uppercase"><fa-icon [icon]="faArrowRightFromBracket"></fa-icon> {{'login.title' | translate}}</h1>
   </div>
   <div *ngIf="hasError" class="alert alert-danger w-100" role="alert">
     {{'login.error-message' | translate}}

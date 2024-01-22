@@ -15,11 +15,11 @@ export class LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private http = inject(HttpClient);
-  private router = inject(Router);
-  private configService = inject(ConfigService);
+  private _http = inject(HttpClient);
+  private _router = inject(Router);
+  private _configService = inject(ConfigService);
 
-  private baseUrl = `${this.configService.baseUrl}identity/`;
+  private baseUrl = `${this._configService.baseUrl}identity/`;
   currentUserSubject$: BehaviorSubject<ILoginUser | null> = new BehaviorSubject<ILoginUser | null>(null);
   public loginResponse: LoginResponse = new LoginResponse();
 
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   getLocalStorageData(): Observable<boolean> {
-    return of(localStorage[this.configService.storageName]).pipe(
+    return of(localStorage[this._configService.storageName]).pipe(
       switchMap((localStorageData) => {
         if (localStorageData) {
           this.loginResponse = JSON.parse(localStorageData);
@@ -48,12 +48,12 @@ export class AuthService {
   )};
 
   public login(user: ILoginUser): Observable<ILoginUser> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}token`, user).pipe(
+    return this._http.post<LoginResponse>(`${this.baseUrl}token`, user).pipe(
       switchMap((response) => {
         return this.getUserMe(response.access_token).pipe(
           tap((user) => {
             if (response.access_token) {
-              localStorage.setItem(this.configService.storageName, JSON.stringify(response));
+              localStorage.setItem(this._configService.storageName, JSON.stringify(response));
             }
             this.currentUserSubject$.next(user);
             this.loginResponse = response;
@@ -68,15 +68,15 @@ export class AuthService {
 
   public logout(): void {
 
-    this.http.post(`${this.baseUrl}logout`, null).subscribe({
+    this._http.post(`${this.baseUrl}logout`, null).subscribe({
       next: () => {
-        localStorage.removeItem(this.configService.storageName);
-        this.router.navigate(['/']);
+        localStorage.removeItem(this._configService.storageName);
+        this._router.navigate(['/']);
       }
     })
   }
 
   getUserMe(accessToken: string): Observable<ILoginUser> {
-    return this.http.get<ILoginUser>(`${this.configService.baseUrl}user/me`, { headers: { Authorization: `Bearer ${accessToken}` } });
+    return this._http.get<ILoginUser>(`${this._configService.baseUrl}user/me`, { headers: { Authorization: `Bearer ${accessToken}` } });
   }
 }

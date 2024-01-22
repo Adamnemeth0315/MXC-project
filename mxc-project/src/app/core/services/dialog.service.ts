@@ -5,14 +5,14 @@ import { MatDialog } from '@angular/material/dialog';
   providedIn: 'root'
 })
 export class DialogService {
-  private matDialog = inject(MatDialog);
+  private _matDialog = inject(MatDialog);
   private _dialogOpened = false;
 
   public openDialog(dialog: any, data?: any) {
     if (!this._dialogOpened) {
       this._dialogOpened = true;
 
-      const dialogRef = this.matDialog.open(dialog, {
+      const dialogRef = this._matDialog.open(dialog, {
         width: '600px',
         data: data
       });

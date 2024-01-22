@@ -11,14 +11,14 @@
     "login-btn": "Bejelentkezés"
   },
   "user-list": {
-    "title": "Bejelentkezés",
+    "title": "Munkatársak",
     "user-table-header": {
       "username": "Felhasználó név",
       "created-at": "Létrehozás dátuma",
       "edit": "Szerkesztés",
       "delete": "Tőrlés"
     },
-    "add-user-btn": "Új munkatárs hozzáadása"
+    "add-user-btn": "Új munkatárs felvétele"
   },
   "add-user-dialog": {
     "add-user-title": "Adatok",

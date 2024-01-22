@@ -5,18 +5,18 @@ import { ConfigService } from "../services/config.service";
 
 @Injectable()
 export class SetOrganisationIdInterceptor implements HttpInterceptor {
-  authService = inject(AuthService);
-  configService = inject(ConfigService);
+  private _authService = inject(AuthService);
+  private _configService = inject(ConfigService);
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
 
-    const organisationId = this.configService.organisationID;
-    const user = this.authService.currentUserValue;
+    const organisationId = this._configService.organisationID;
+    const user = this._authService.currentUserValue;
 
     if (user) {
       const modifiedRequest = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.authService.loginResponse.access_token}`,
+          Authorization: `Bearer ${this._authService.loginResponse.access_token}`,
           'X-OrganisationId': organisationId
         },
       });
