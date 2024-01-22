@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 import { SetOrganisationIdInterceptor } from './core/interceptors/set-organisation-id.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
       },
     }),),
     provideAnimations(),
-    { provide: HTTP_INTERCEPTORS, useClass: SetOrganisationIdInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: SetOrganisationIdInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ]
 };

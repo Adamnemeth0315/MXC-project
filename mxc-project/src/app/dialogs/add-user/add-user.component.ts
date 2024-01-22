@@ -28,8 +28,8 @@ import { UserService } from '../../core/services/user.service';
 })
 export class AddUserDialogComponent implements OnInit {
 
-  userService = inject(UserService);
-  snackBar = inject(MatSnackBar);
+  private userService = inject(UserService);
+  private snackBar = inject(MatSnackBar);
 
   public firstNameCtrl = new FormControl('', Validators.required);
   public lastNameCtrl = new FormControl('', Validators.required);

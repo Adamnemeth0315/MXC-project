@@ -15,8 +15,8 @@ import { UserService } from '../../core/services/user.service';
   styleUrl: './delete-user-dialog.component.scss'
 })
 export class DeleteUserDialogComponent {
-  userService = inject(UserService);
-  snackBar = inject(MatSnackBar);
+  private userService = inject(UserService);
+  private snackBar = inject(MatSnackBar);
 
   constructor( @Inject(MAT_DIALOG_DATA) public user: IUser, private _matDialogRef: MatDialogRef<any>) {}
 

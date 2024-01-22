@@ -5,23 +5,23 @@ import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap, throw
 import { ILoginUser } from '../models/login';
 import { ConfigService } from './config.service';
 
-export interface ILoginResponse {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
+export class LoginResponse {
+  access_token: string = '';
+  token_type: string = '';
+  expires_in: number = 0;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  http = inject(HttpClient);
-  router = inject(Router);
-  configService = inject(ConfigService);
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private configService = inject(ConfigService);
 
-  baseUrl = `${this.configService.baseUrl}identity/`;
+  private baseUrl = `${this.configService.baseUrl}identity/`;
   currentUserSubject$: BehaviorSubject<ILoginUser | null> = new BehaviorSubject<ILoginUser | null>(null);
-  public loginResponse: ILoginResponse = {access_token: '', token_type: '', expires_in: 0}
+  public loginResponse: LoginResponse = new LoginResponse();
 
 
   get currentUserValue(): any {
@@ -48,7 +48,7 @@ export class AuthService {
   )};
 
   public login(user: ILoginUser): Observable<ILoginUser> {
-    return this.http.post<ILoginResponse>(`${this.baseUrl}token`, user).pipe(
+    return this.http.post<LoginResponse>(`${this.baseUrl}token`, user).pipe(
       switchMap((response) => {
         return this.getUserMe(response.access_token).pipe(
           tap((user) => {

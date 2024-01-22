@@ -1,17 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
 import { IUser } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
-import { Observable } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingService } from '../../core/services/loading.service';
 
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -22,48 +24,60 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     TranslateModule
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   private userService = inject(UserService);
   private dialogService = inject(DialogService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private loadingService = inject(LoadingService);
 
   public usersLength = 0;
   public pageIndex = 0;
+  public isLoading = this.loadingService.loading;
+  private _subscriptons: Subscription[] = [];
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = [
+  public displayedColumns: string[] = [
     'userName',
     'createdAt',
     'edit',
     'delete',
   ];
-  dataSource = [];
+  public dataSource = [];
 
   ngOnInit(): void {
-    this.userService.getUserList().subscribe({
-      next: (users: any) => {
-        this.dataSource = users.results
-        this.usersLength = users.resultsLength
-      }
-    });
+    this._subscriptons.push(
+      this.userService.getUserList().subscribe({
+        next: (users: any) => {
+          this.dataSource = users.results
+          this.usersLength = users.resultsLength
+        }
+      })
+    );
 
-    this.route.queryParams.subscribe({
-      next: () => this.userService.getUserList()
-    });
+
+    this._subscriptons.push(
+      this.route.queryParams.subscribe({
+        next: () => this.userService.getUserList()
+      })
+    );
+
 
     if (this.paginator) {
       // Sign up for paginator changes here
-      this.paginator.page.subscribe((event: PageEvent) => {
-        this.onPaginateChange(event);
-      });
+      this._subscriptons.push(
+        this.paginator.page.subscribe((event: PageEvent) => {
+          this.onPaginateChange(event);
+        })
+      );
     }
   };
 
@@ -95,11 +109,13 @@ export class UserListComponent implements OnInit {
   };
 
   public openEditUserDialog(id: string): void {
-    this.userService.getUserById(id).subscribe({
-      next: (user) => {
-        this.dialogService.openDialog(AddUserDialogComponent, user);
-      }
-    })
+    this._subscriptons.push(
+      this.userService.getUserById(id).subscribe({
+        next: (user) => {
+          this.dialogService.openDialog(AddUserDialogComponent, user);
+        }
+      })
+    )
   };
 
   public deleteUser(user: IUser): void {
@@ -122,6 +138,12 @@ export class UserListComponent implements OnInit {
       this.userService.queryParams.order = order;
       this.userService.queryParams.orderby = orderby;
     }
+  }
+
+  public ngOnDestroy(): void {
+    this._subscriptons.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
 }

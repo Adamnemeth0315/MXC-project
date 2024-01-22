@@ -29,9 +29,9 @@ import { UserService } from '../../core/services/user.service';
 })
 export class LoginComponent {
 
-  authService = inject(AuthService);
-  userService = inject(UserService);
-  route = inject(Router)
+  private authService = inject(AuthService);
+  private userService = inject(UserService);
+  private route = inject(Router)
 
   public hidePassword = true;
   public hasError = false;

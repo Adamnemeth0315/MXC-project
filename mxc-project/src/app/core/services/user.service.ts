@@ -8,10 +8,10 @@ import { ConfigService } from './config.service';
   providedIn: 'root'
 })
 export class UserService {
-  http = inject(HttpClient);
-  configService = inject(ConfigService);
+  private http = inject(HttpClient);
+  private configService = inject(ConfigService);
 
-  baseUrl = `${this.configService.baseUrl}admin/`;
+  private baseUrl = `${this.configService.baseUrl}admin/`;
   private userList$: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>([]);
   public userListLength!: Observable<number>;
   public queryParams = {
@@ -30,7 +30,6 @@ export class UserService {
 
     this.http.get<IUser[]>(`${this.baseUrl}user`, {params}).subscribe({
       next: (userList) => {
-        console.log(userList);
         this.userList$.next(userList)
       },
       error: (error) => console.error(error)

@@ -1,14 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { mergeMap } from 'rxjs/operators';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
-  matDialog = inject(MatDialog);
-  userService = inject(UserService)
+  private matDialog = inject(MatDialog);
   private _dialogOpened = false;
 
   public openDialog(dialog: any, data?: any) {
