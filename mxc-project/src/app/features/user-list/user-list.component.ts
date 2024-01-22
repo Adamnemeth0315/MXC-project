@@ -43,6 +43,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   public usersLength = 0;
   public pageIndex = 0;
+  public pageSize = 5;
   private _subscriptons: Subscription[] = [];
 
   //Font awesome icons
@@ -80,10 +81,11 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     if (this.paginator) {
       // Sign up for paginator changes here
-
+      this._subscriptons.push(
         this.paginator.page.subscribe((event: PageEvent) => {
           this.onPaginateChange(event);
-        });
+        })
+      );
     }
   };
 
@@ -98,6 +100,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     // Here I set the pageIndex on the page of the userService queryparam object
     this.pageIndex = this._userService.queryParams.pageIndex;
+    this._userService.queryParams.limit = event.pageSize;
+    this.pageSize = this._userService.queryParams.limit;
     this._router.navigate([], {
       relativeTo: this._route,
       queryParams: {
@@ -107,7 +111,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       queryParamsHandling: 'merge',
     });
 
-    this._userService.queryParams.limit = event.pageSize;
   };
 
   openAddUserDialog(): void {
