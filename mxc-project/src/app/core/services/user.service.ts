@@ -4,6 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser, IUserListResponse } from '../models/user';
 import { ConfigService } from './config.service';
 
+export class PageOptions {
+  pageIndex = 0;
+  limit = 5;
+  order = 'asc';
+  orderby = 'UserName';
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,19 +20,19 @@ export class UserService {
 
   private _baseUrl = `${this._configService.baseUrl}admin/`;
   private _userList$: BehaviorSubject<IUserListResponse> = new BehaviorSubject<IUserListResponse>({results: [], resultsLength: 0});
-  public queryParams = {
+  public queryParams: PageOptions = {
     order: 'asc',
     pageIndex: 0,
     limit: 5,
     orderby: 'UserName',
   };
 
-  public getUserList(): Observable<IUserListResponse> {
+  public getUserList(pageOptions: PageOptions): Observable<IUserListResponse> {
     let params = new HttpParams()
-    .set('order', this.queryParams.order)
-    .set('pageIndex', this.queryParams.pageIndex.toString())
-    .set('limit', this.queryParams.limit.toString())
-    .set('orderby', this.queryParams.orderby);
+    .set('order', pageOptions.order)
+    .set('pageIndex', pageOptions.pageIndex)
+    .set('limit', pageOptions.limit)
+    .set('orderby', pageOptions.orderby);
 
     this._http.get<IUserListResponse>(`${this._baseUrl}user`, {params}).subscribe({
       next: (userList) => {

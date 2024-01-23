@@ -34,7 +34,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class LoginComponent {
 
   private _authService = inject(AuthService);
-  private _userService = inject(UserService);
   private _route = inject(Router)
 
   public hidePassword = true;
@@ -56,7 +55,7 @@ export class LoginComponent {
     const user = this.loginForm.value as ILoginUser;
     this._authService.login(user).subscribe({
       next: () => {
-        this._route.navigate(['/users'], {queryParams: this._userService.queryParams});
+        this._route.navigate(['/users']);
         this.hasError = false;
       },
       error: () => this.hasError = true

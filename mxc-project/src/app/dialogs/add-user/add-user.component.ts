@@ -32,6 +32,8 @@ export class AddUserDialogComponent implements OnInit {
   private _snackBar = inject(MatSnackBar);
   private _matDialogRef = inject(MatDialogRef);
 
+  private _pageOptions = this._userService.queryParams;
+
   public firstNameCtrl = new FormControl('', Validators.required);
   public lastNameCtrl = new FormControl('', Validators.required);
   public userNameCtrl = new FormControl('', Validators.required);
@@ -81,7 +83,7 @@ export class AddUserDialogComponent implements OnInit {
     ?
     this._userService.editUserById({id: this.user.id, ...data} as unknown as IUser).subscribe({
       next: () => {
-        this._userService.getUserList();
+        this._userService.getUserList(this._pageOptions);
         this._snackBar.open('A munkatárs sikeresen módosítva lett!', 'OK', { duration: 5000 })
       },
       error: () => {
@@ -90,7 +92,7 @@ export class AddUserDialogComponent implements OnInit {
     })
     : this._userService.addUser(data as unknown as IUser).subscribe({
       next: () =>  {
-        this._userService.getUserList();
+        this._userService.getUserList(this._pageOptions);
         this._snackBar.open('Az új munkatárs sikeresen hozzá lett adva listához!', 'OK', { duration: 5000 })
       },
       error: () => {

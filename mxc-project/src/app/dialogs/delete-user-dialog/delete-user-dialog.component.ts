@@ -19,6 +19,8 @@ export class DeleteUserDialogComponent {
   private _snackBar = inject(MatSnackBar);
   private _matDialogRef = inject(MatDialogRef);
 
+  private _pageOptions = this._userService.queryParams;
+
   constructor( @Inject(MAT_DIALOG_DATA) public user: IUser) {}
 
   public closeDialog(): void {
@@ -28,7 +30,7 @@ export class DeleteUserDialogComponent {
   public deleteUser(id: string): void {
     this._userService.removeUserById(id).subscribe({
       next: () => {
-        this._userService.getUserList();
+        this._userService.getUserList(this._pageOptions);
         this._snackBar.open('A munkatárs sikeresen törölve lett!', 'OK', { duration: 5000 });
       },
       error: () => {

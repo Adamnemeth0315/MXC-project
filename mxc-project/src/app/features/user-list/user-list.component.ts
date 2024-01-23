@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../../core/services/user.service';
+import { PageOptions, UserService } from '../../core/services/user.service';
 import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
-import { IUser, IUserListResponse } from '../../core/models/user';
+import { IUser } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -85,41 +85,29 @@ export class UserListComponent implements OnInit, OnDestroy {
   public dataSource: IUser[] = [];
 
   ngOnInit(): void {
-    this._subscriptons.push(
-      // Subscribe to getUserList
-      this._userService.getUserList().subscribe((users: IUserListResponse) => {
-          this.dataSource = users.results
-          this.usersLength = users.resultsLength
-        }),
-
-      // Subscribe to queryParams
-      this._route.queryParams.subscribe(() => this._userService.getUserList())
-    );
-  };
+    this.fetchUsers();
+  }
 
   public onPaginateChange(event: PageEvent): void {
-    // Here we check if there are enough elements for the new pageSize, if so we leave the pageIndex, if not we set it to 0.
-    if (this.usersLength > event.pageSize) {
-      this._userService.queryParams.pageIndex = event.pageIndex;
-    } else {
-      this._userService.queryParams.pageIndex = 0;
-      this.pageIndex = 0;
-    }
-
-    // Here I set the pageIndex on the page of the userService queryparam object
-    this.pageIndex = this._userService.queryParams.pageIndex;
     this._userService.queryParams.limit = event.pageSize;
-    this.pageSize = this._userService.queryParams.limit;
-    this._router.navigate([], {
-      relativeTo: this._route,
-      queryParams: {
-        pageIndex: this.pageIndex,
-        limit: event.pageSize,
-      },
-      queryParamsHandling: 'merge',
-    });
+    this._userService.queryParams.pageIndex = event.pageIndex;
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.fetchUsers();
+  }
 
-  };
+  fetchUsers(): void {
+    const pageOptions: PageOptions = {
+      pageIndex: this._userService.queryParams.pageIndex,
+      limit: this._userService.queryParams.limit,
+      orderby: this._userService.queryParams.orderby,
+      order: this._userService.queryParams.order,
+    };
+    this._userService.getUserList(pageOptions).subscribe((users: any) => {
+      this.dataSource = users.results;
+      this.usersLength = users.resultsLength;
+    });
+  }
 
   openAddUserDialog(): void {
     this._dialogService.openDialog(AddUserDialogComponent);
@@ -141,17 +129,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     // Here I set up the queryParams, but first I check whether there are any changes to the stored queryParam values or not
     if (orderby !== this._userService.queryParams.orderby || order !== this._userService.queryParams.order) {
-      this._router.navigate([], {
-        relativeTo: this._route,
-        queryParams: {
-          orderby: orderby,
-          order: order,
-        },
-        queryParamsHandling: 'merge',
-      });
-
       this._userService.queryParams.order = order;
       this._userService.queryParams.orderby = orderby;
+      this.fetchUsers();
     }
   }
 
