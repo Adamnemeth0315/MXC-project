@@ -44,6 +44,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   public usersLength = 0;
   public pageIndex = 0;
   public pageSize = 5;
+  public isLoading$ = this.loadingService.isLoading$;
   private _subscriptons: Subscription[] = [];
 
   //Font awesome icons
@@ -66,27 +67,14 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._subscriptons.push(
       // Subscribe to getUserList
-      this._userService.getUserList().subscribe({
-        next: (users: IUserListResponse) => {
+      this._userService.getUserList().subscribe((users: IUserListResponse) => {
           this.dataSource = users.results
           this.usersLength = users.resultsLength
-        }
-      }),
+        }),
 
       // Subscribe to queryParams
-      this._route.queryParams.subscribe({
-        next: () => this._userService.getUserList()
-      })
+      this._route.queryParams.subscribe(() => this._userService.getUserList())
     );
-
-    if (this.paginator) {
-      // Sign up for paginator changes here
-      this._subscriptons.push(
-        this.paginator.page.subscribe((event: PageEvent) => {
-          this.onPaginateChange(event);
-        })
-      );
-    }
   };
 
   public onPaginateChange(event: PageEvent): void {
@@ -119,11 +107,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   public openEditUserDialog(id: string): void {
     this._subscriptons.push(
-      this._userService.getUserById(id).subscribe({
-        next: (user) => {
+      this._userService.getUserById(id).subscribe((user) => {
           this._dialogService.openDialog(AddUserDialogComponent, user);
-        }
-      })
+        })
     )
   };
 

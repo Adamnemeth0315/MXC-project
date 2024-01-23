@@ -2,10 +2,13 @@
     <div class="d-flex justify-content-between container-fluid align-items-end">
       <img class="navigation__logo" src="/assets/logo/logo_transparent_background.png" alt="mxc-logo">
       <div *ngIf="showLogout" class="navigation__end">
-        <span> {{'navigation.welcome' | translate}} <strong>{{userName}}</strong>!</span>
-        <a class="navigation__logout-btn" svgIcon="logout" (click)="logout()">
-          {{'navigation.logout' | translate}}
-        </a>
+        <div class="d-flex flex-column">
+          <span> {{'navigation.welcome' | translate}} <strong>{{userName}}</strong>!</span>
+          <a class="navigation__logout-btn" svgIcon="logout" (click)="logout()">
+            {{'navigation.logout' | translate}}
+          </a>
+        </div>
+        <img class="navigation__profile-image" src="/assets/images/member-avatar.png" alt="profile-image">
       </div>
   </div>
 </nav>

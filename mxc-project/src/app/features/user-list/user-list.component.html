@@ -1,4 +1,4 @@
-<ng-container *ngIf="!(loadingService.isLoading$ | async); else loadingSpinner">
+<ng-container *ngIf="!(isLoading$ | async); else loadingSpinner">
   <div class="users-table">
     <div class="d-flex justify-content-between mb-5">
       <h1 class="users-table__title"><fa-icon [icon]="faUser"></fa-icon>  {{'user-list.title' | translate}} </h1>
