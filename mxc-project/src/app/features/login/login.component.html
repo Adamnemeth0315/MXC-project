@@ -10,13 +10,13 @@
 
       <mat-form-field appearance="outline">
         <mat-label>{{'login.username-label' | translate}}</mat-label>
-        <input formControlName="userName" matInput type="text" placeholder="Add meg a felhasználó neved">
+        <input formControlName="userName" matInput type="text" placeholder="{{'login.username-placeholder' | translate}}">
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>{{'login.password-label' | translate}}</mat-label>
         <input formControlName="password" matInput type="{{hidePassword ? 'password' : 'text'}}"
-          placeholder="Add meg a jelszavad">
+          placeholder="{{'login.password-placeholder' | translate}}">
         <mat-icon class="icon" matSuffix (click)="togglePasswordVisibility()">{{hidePassword ? 'visibility' : 'visibility_off'}}
         </mat-icon>
       </mat-form-field>

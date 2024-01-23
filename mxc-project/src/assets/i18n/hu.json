@@ -6,7 +6,9 @@
   "login": {
     "title": "Bejelentkezés",
     "username-label": "Felhasználónév",
+    "username-placeholder": "Add meg a felhasználóneved",
     "password-label": "Jelszó",
+    "password-placeholder": "Add meg a jelszavad",
     "error-message": "A bejelentkezés során hiba történt!",
     "login-btn": "Bejelentkezés"
   },
