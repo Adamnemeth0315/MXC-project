@@ -8,15 +8,34 @@ import { DialogService } from '../../core/services/dialog.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from '../../core/services/loading.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+export class MyCustomPaginatorIntl implements MatPaginatorIntl {
+  changes = new Subject<void>();
+  itemsPerPageLabel = 'Elem per oldal';
+  nextPageLabel = 'Következő';
+  previousPageLabel = 'Előző';
+  firstPageLabel = 'Első';
+  lastPageLabel = 'Utolsó';
+
+  getRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length == 0 || pageSize == 0) {
+      return `0 / ${length}`;
+    }
+
+    length = Math.ceil(length / pageSize);
+
+    return `${page + 1} / ${length}`;
+  };
+}
 
 
 @Component({
@@ -31,6 +50,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FontAwesomeModule,
     TranslateModule
   ],
+  providers: [{ provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
