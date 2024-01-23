@@ -14,4 +14,8 @@ export const routes: Routes = [
     loadChildren: () => import('./features/user-list/users.routes').then((routes) => routes.USERS_ROUTES),
     canActivate: [AuthGuard],
   },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
