@@ -8,7 +8,7 @@ import { DialogService } from '../../core/services/dialog.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from '../../core/services/loading.service';
-import { Subject, Subscription } from 'rxjs';
+import { pipe, Subject, Subscription } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,6 +17,7 @@ import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   changes = new Subject<void>();
@@ -37,7 +38,7 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   };
 }
 
-
+@UntilDestroy()
 @Component({
   selector: 'app-user-list',
   standalone: true,
@@ -54,18 +55,15 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnInit {
   private _userService = inject(UserService);
   private _dialogService = inject(DialogService);
-  private _router = inject(Router);
-  private _route = inject(ActivatedRoute);
   public loadingService = inject(LoadingService);
 
   public usersLength = 0;
   public pageIndex = 0;
   public pageSize = 5;
   public isLoading$ = this.loadingService.isLoading$;
-  private _subscriptons: Subscription[] = [];
 
   //Font awesome icons
   public faPlus = faPlus;
@@ -103,7 +101,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       orderby: this._userService.queryParams.orderby,
       order: this._userService.queryParams.order,
     };
-    this._userService.getUserList(pageOptions).subscribe((users: any) => {
+    this._userService.getUserList(pageOptions).pipe(untilDestroyed(this)).subscribe((users: any) => {
       this.dataSource = users.results;
       this.usersLength = users.resultsLength;
     });
@@ -114,11 +112,9 @@ export class UserListComponent implements OnInit, OnDestroy {
   };
 
   public openEditUserDialog(id: string): void {
-    this._subscriptons.push(
-      this._userService.getUserById(id).subscribe((user) => {
+      this._userService.getUserById(id).pipe(untilDestroyed(this)).subscribe((user) => {
           this._dialogService.openDialog(AddUserDialogComponent, user);
         })
-    )
   };
 
   public deleteUser(user: IUser): void {
@@ -135,10 +131,5 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy(): void {
-    this._subscriptons.forEach((subscription) => {
-      subscription.unsubscribe();
-    });
-  }
 
 }

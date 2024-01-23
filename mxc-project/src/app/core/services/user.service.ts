@@ -8,7 +8,7 @@ export class PageOptions {
   pageIndex = 0;
   limit = 5;
   order = 'asc';
-  orderby = 'UserName';
+  orderby = '';
 }
 
 @Injectable({
@@ -24,7 +24,7 @@ export class UserService {
     order: 'asc',
     pageIndex: 0,
     limit: 5,
-    orderby: 'UserName',
+    orderby: '',
   };
 
   public getUserList(pageOptions: PageOptions): Observable<IUserListResponse> {

@@ -37,5 +37,13 @@
     "description": "A törlés gombra kattintva a munkatárs kitörlődik a rendszerből!",
     "cancel-btn": "Mégse",
     "delete-btn": "Törlés"
+  },
+  "snack-bar": {
+    "delete-user-message": "A munkatárs sikeresen törölve lett!",
+    "delete-user-error-message": "A munkatárs törlése nem sikerült!",
+    "add-user-message": "A munkatárs sikeresen módosítva lett!",
+    "add-user-error-message": "A munkatárs házzadása nem sikerült!",
+    "edit-user-message": "Az új munkatárs sikeresen hozzá lett adva listához!",
+    "edit-user-error-message": "A munkatárs módosítása nem sikerült!"
   }
 }

@@ -13,7 +13,9 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -53,7 +55,7 @@ export class LoginComponent {
 
   public login(): void {
     const user = this.loginForm.value as ILoginUser;
-    this._authService.login(user).subscribe({
+    this._authService.login(user).pipe(untilDestroyed(this)).subscribe({
       next: () => {
         this._route.navigate(['/users']);
         this.hasError = false;

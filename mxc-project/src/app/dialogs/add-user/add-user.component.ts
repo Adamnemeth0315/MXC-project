@@ -3,13 +3,14 @@ import { Component, inject, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-add-user',
   standalone: true,
@@ -31,6 +32,7 @@ export class AddUserDialogComponent implements OnInit {
   private _userService = inject(UserService);
   private _snackBar = inject(MatSnackBar);
   private _matDialogRef = inject(MatDialogRef);
+  private _translateService = inject(TranslateService);
 
   private _pageOptions = this._userService.queryParams;
 
@@ -51,7 +53,7 @@ export class AddUserDialogComponent implements OnInit {
     phoneNumber: this.phoneNumberCtrl,
   })
 
-  constructor( @Inject(MAT_DIALOG_DATA) public user: IUser) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public user: IUser) { }
 
 
   ngOnInit(): void {
@@ -80,27 +82,28 @@ export class AddUserDialogComponent implements OnInit {
     }
 
     this.user
-    ?
-    this._userService.editUserById({id: this.user.id, ...data} as unknown as IUser).subscribe({
-      next: () => {
-        this._userService.getUserList(this._pageOptions);
-        this._snackBar.open('A munkatárs sikeresen módosítva lett!', 'OK', { duration: 5000 })
-      },
-      error: () => {
-        this._snackBar.open('A munkatárs házzadása nem sikerült!', 'OK', { duration: 5000 })
-      }
-    })
-    : this._userService.addUser(data as unknown as IUser).subscribe({
-      next: () =>  {
-        this._userService.getUserList(this._pageOptions);
-        this._snackBar.open('Az új munkatárs sikeresen hozzá lett adva listához!', 'OK', { duration: 5000 })
-      },
-      error: () => {
-        this._snackBar.open('A munkatárs módosítása nem sikerült!', 'OK', { duration: 5000 })
-      }
-    });
+      ?
+      this._userService.editUserById({ id: this.user.id, ...data } as unknown as IUser)
+        .subscribe({
+          next: () => {
+            this._userService.getUserList(this._pageOptions);
+            this._snackBar.open(this._translateService.instant('snack-bar.add-user-message'), 'OK', { duration: 5000 })
+          },
+          error: () => {
+            this._snackBar.open(this._translateService.instant('snack-bar.add-user-error-message'), 'OK', { duration: 5000 })
+          }
+        })
+      : this._userService.addUser(data as unknown as IUser).subscribe({
+        next: () => {
+          this._userService.getUserList(this._pageOptions);
+          this._snackBar.open(this._translateService.instant('snack-bar.edit-user-message'), 'OK', { duration: 5000 })
+        },
+        error: () => {
+          this._snackBar.open(this._translateService.instant('snack-bar.edit-user-error-message'), 'OK', { duration: 5000 })
+        }
+      });
     this.userForm.reset();
     this._matDialogRef.close();
-}
+  }
 
 }
