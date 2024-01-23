@@ -1,7 +1,10 @@
 <div class="user-edit">
   <div class="user-edit__header" mat-dialog-header>
-    <h1 class="user-edit__title">{{'user-managment-dialog.user-managment-dialog-title' | translate}}</h1>
-    <mat-icon class="user-edit__icon" (click)="closeDialog()">close</mat-icon>
+    <h1 class="user-edit__title">
+      <fa-icon [icon]="faUserEdit"></fa-icon>
+      {{'user-managment-dialog.user-managment-dialog-title' | translate}}
+    </h1>
+      <mat-icon class="user-edit__icon" (click)="closeDialog()">close</mat-icon>
     </div>
   <div mat-dialog-content>
     <form class="form" [formGroup]="userForm" (ngSubmit)="submitForm()">

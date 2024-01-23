@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-managment-dialog',
@@ -22,6 +24,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatIconModule,
     MatSnackBarModule,
+    FontAwesomeModule,
     TranslateModule
   ],
   templateUrl: './user-managment-dialog.component.html',
@@ -42,6 +45,8 @@ export class UserManagmentDialogComponent implements OnInit {
   public passwordCtrl = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).+$')]);
   public emailCtrl = new FormControl('', [Validators.required, Validators.email]);
   public phoneNumberCtrl = new FormControl('');
+
+  public faUserEdit = faUserEdit;
 
 
   public userForm = new FormGroup({
