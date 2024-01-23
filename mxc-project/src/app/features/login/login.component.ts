@@ -6,14 +6,13 @@ import { AuthService } from '../../core/services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserService } from '../../core/services/user.service';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @UntilDestroy()
 @Component({

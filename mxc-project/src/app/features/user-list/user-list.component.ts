@@ -1,16 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { PageOptions, UserService } from '../../core/services/user.service';
 import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
 import { IUser } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from '../../core/services/loading.service';
-import { pipe, Subject, Subscription } from 'rxjs';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { Subject } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -18,6 +15,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   changes = new Subject<void>();

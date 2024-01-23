@@ -38,13 +38,13 @@ export class AuthService {
           return of(null); // If there is no localStorage data, an empty observable is returned
         }
       }),
-      catchError(() => of(null)),
+      catchError(() => of(null)), // If there is some error, an empty observable is returned
       tap((user) => {
         if (user) {
-          this.currentUserSubject$.next(user);
+          this.currentUserSubject$.next(user); // If there is a user set it to currentUserSubject$
         }
       }),
-      map((user) => !!user)
+      map((user) => !!user) // Returns a true or false depending on whether there is a user
   )};
 
   public login(user: ILoginUser): Observable<ILoginUser> {
