@@ -46,7 +46,7 @@
             placeholder="{{'user-managment-dialog.form.phone-number.placeholder' | translate}}">
         </mat-form-field>
 
-        <button type="submit" class="btn btn-primary">{{'user-managment-dialog.submit-btn' | translate}}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">{{'user-managment-dialog.submit-btn' | translate}}</button>
       </div>
     </form>
 
