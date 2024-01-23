@@ -40,7 +40,7 @@ export class AddUserDialogComponent implements OnInit {
   public lastNameCtrl = new FormControl('', Validators.required);
   public userNameCtrl = new FormControl('', Validators.required);
   public passwordCtrl = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).+$')]);
-  public emailCtrl = new FormControl('', Validators.required);
+  public emailCtrl = new FormControl('', [Validators.required, Validators.email]);
   public phoneNumberCtrl = new FormControl('');
 
 

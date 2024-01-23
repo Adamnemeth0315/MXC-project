@@ -14,6 +14,7 @@ export class DialogService {
 
       const dialogRef = this._matDialog.open(dialog, {
         width: '600px',
+        disableClose: true,
         data: data
       });
 
