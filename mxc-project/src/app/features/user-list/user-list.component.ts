@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { PageOptions, UserService } from '../../core/services/user.service';
-import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.component';
+import { UserManagmentDialogComponent } from '../../dialogs/add-user/user-managment-dialog.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
 import { IUser } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
@@ -107,12 +107,12 @@ export class UserListComponent implements OnInit {
   }
 
   openAddUserDialog(): void {
-    this._dialogService.openDialog(AddUserDialogComponent);
+    this._dialogService.openDialog(UserManagmentDialogComponent);
   };
 
   public openEditUserDialog(id: string): void {
       this._userService.getUserById(id).pipe(untilDestroyed(this)).subscribe((user) => {
-          this._dialogService.openDialog(AddUserDialogComponent, user);
+          this._dialogService.openDialog(UserManagmentDialogComponent, user);
         })
   };
 

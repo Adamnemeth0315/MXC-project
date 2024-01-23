@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-add-user',
+  selector: 'app-user-managment-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -24,10 +24,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule,
     TranslateModule
   ],
-  templateUrl: './add-user.component.html',
-  styleUrl: './add-user.component.scss'
+  templateUrl: './user-managment-dialog.component.html',
+  styleUrl: './user-managment-dialog.component.scss'
 })
-export class AddUserDialogComponent implements OnInit {
+export class UserManagmentDialogComponent implements OnInit {
 
   private _userService = inject(UserService);
   private _snackBar = inject(MatSnackBar);

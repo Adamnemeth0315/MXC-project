@@ -16,7 +16,7 @@
       "username": "Felhasználó név",
       "created-at": "Létrehozás dátuma",
       "edit": "Szerkesztés",
-      "delete": "Tőrlés"
+      "delete": "Törlés"
     },
     "add-user-btn": "Új munkatárs felvétele"
   },
@@ -35,7 +35,7 @@
   "delete-user-dialog": {
     "title": "Biztosan törli a munkatársat?",
     "description": "A törlés gombra kattintva a munkatárs kitörlődik a rendszerből!",
-    "cancel-btn": "Mégse",
+    "cancel-btn": "Vissza",
     "delete-btn": "Törlés"
   },
   "snack-bar": {
