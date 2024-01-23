@@ -3,7 +3,7 @@ import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../core/services/user.service';
 import { AddUserDialogComponent } from '../../dialogs/add-user/add-user.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
-import { IUser } from '../../core/models/user';
+import { IUser, IUserListResponse } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -61,13 +61,13 @@ export class UserListComponent implements OnInit, OnDestroy {
     'edit',
     'delete',
   ];
-  public dataSource = [];
+  public dataSource: IUser[] = [];
 
   ngOnInit(): void {
     this._subscriptons.push(
       // Subscribe to getUserList
       this._userService.getUserList().subscribe({
-        next: (users: any) => {
+        next: (users: IUserListResponse) => {
           this.dataSource = users.results
           this.usersLength = users.resultsLength
         }

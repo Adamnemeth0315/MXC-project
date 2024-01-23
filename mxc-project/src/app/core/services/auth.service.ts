@@ -6,9 +6,9 @@ import { ILoginUser } from '../models/login';
 import { ConfigService } from './config.service';
 
 export class LoginResponse {
-  access_token: string = '';
-  token_type: string = '';
-  expires_in: number = 0;
+  access_token = '';
+  token_type = '';
+  expires_in = 0;
 }
 
 @Injectable({
@@ -24,7 +24,7 @@ export class AuthService {
   public loginResponse: LoginResponse = new LoginResponse();
 
 
-  get currentUserValue(): any {
+  get currentUserValue(): ILoginUser | null {
     return this.currentUserSubject$.value;
   }
 
