@@ -1,10 +1,12 @@
+$primary: #3f51b5;
+
 .users-table {
   max-width: 100%;
   margin: 20px 40px;
 
   &__title {
     font-weight: 700;
-    color: #3f51b5;
+    color: $primary;
   }
 
   &__btn-group {

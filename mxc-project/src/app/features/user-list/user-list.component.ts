@@ -26,6 +26,7 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   firstPageLabel = 'Első';
   lastPageLabel = 'Utolsó';
 
+  // Here I set the paginate text and layout
   getRangeLabel = (page: number, pageSize: number, length: number) => {
     if (length == 0 || pageSize == 0) {
       return `0 / ${length}`;
@@ -129,6 +130,5 @@ export class UserListComponent implements OnInit {
       this.fetchUsers();
     }
   }
-
 
 }

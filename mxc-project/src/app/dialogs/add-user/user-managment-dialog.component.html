@@ -1,6 +1,6 @@
 <div class="user-edit">
   <div class="user-edit__header" mat-dialog-header>
-    <h1 class="user-edit__title">{{'add-user-dialog.add-user-title' | translate}}</h1>
+    <h1 class="user-edit__title">{{'user-managment-dialog.user-managment-dialog-title' | translate}}</h1>
     <mat-icon class="user-edit__icon" (click)="closeDialog()">close</mat-icon>
     </div>
   <div mat-dialog-content>
@@ -8,41 +8,42 @@
       <div class="d-flex flex-column p-2">
 
         <mat-form-field appearance="outline">
-          <mat-label>{{'add-user-dialog.form.first-name-label' | translate}}</mat-label>
-          <input formControlName="firstName" matInput type="text" placeholder="Add meg a keresztneved">
+          <mat-label>{{'user-managment-dialog.form.firstname.label' | translate}}</mat-label>
+          <input formControlName="firstName" matInput type="text"
+            placeholder="{{'user-managment-dialog.form.firstname.placeholder' | translate}}">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{'add-user-dialog.form.last-name-label' | translate}}</mat-label>
+          <mat-label>{{'user-managment-dialog.form.lastname.label' | translate}}</mat-label>
           <input formControlName="lastName" matInput type="text"
-            placeholder="Add meg a vezetékneved">
+            placeholder="{{'user-managment-dialog.form.lastname.placeholder' | translate}}">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{'add-user-dialog.form.username-label' | translate}}</mat-label>
+          <mat-label>{{'user-managment-dialog.form.username.label' | translate}}</mat-label>
           <input formControlName="userName" matInput type="text"
-            placeholder="Add meg a felhasználó nevet">
+            placeholder="{{'user-managment-dialog.form.username.placeholder' | translate}}">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{'add-user-dialog.form.password-label' | translate}}</mat-label>
+          <mat-label>{{'user-managment-dialog.form.password.label' | translate}}</mat-label>
           <input formControlName="password" matInput type="password"
-            placeholder="Add meg a felhasználó jelszavát">
+            placeholder="{{'user-managment-dialog.form.password.placeholder' | translate}}">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{'add-user-dialog.form.email-label' | translate}}</mat-label>
+          <mat-label>{{'user-managment-dialog.form.email.label' | translate}}</mat-label>
           <input formControlName="email" matInput type="text"
-            placeholder="Add meg a felhasználó email címét">
+            placeholder="{{'user-managment-dialog.form.email.placeholder' | translate}}">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>{{'add-user-dialog.form.phone-number-label' | translate}}</mat-label>
+          <mat-label>{{'user-managment-dialog.form.phone-number.label' | translate}}</mat-label>
           <input formControlName="phoneNumber" matInput type="text"
-            placeholder="Add meg a felhasználó telefonszámát">
+            placeholder="{{'user-managment-dialog.form.phone-number.placeholder' | translate}}">
         </mat-form-field>
 
-        <button type="submit" class="btn btn-primary">{{'add-user-dialog.submit-btn' | translate}}</button>
+        <button type="submit" class="btn btn-primary">{{'user-managment-dialog.submit-btn' | translate}}</button>
       </div>
     </form>
 

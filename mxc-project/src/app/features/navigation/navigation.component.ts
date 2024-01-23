@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit {
   private _authService = inject(AuthService);
 
   public showLogout = false;
-  public userName: string = '';
+  public userName = '';
 
   ngOnInit(): void {
     this._authService.currentUserSubject$.subscribe((user) => {

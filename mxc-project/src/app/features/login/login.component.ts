@@ -42,7 +42,6 @@ export class LoginComponent {
 
   public faArrowRightFromBracket = faArrowRightFromBracket;
 
-
   public loginForm = new FormGroup({
     userName: new FormControl<string>('', Validators.required),
     password: new FormControl<string>('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).+$')])

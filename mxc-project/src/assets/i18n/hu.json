@@ -20,15 +20,33 @@
     },
     "add-user-btn": "Új munkatárs felvétele"
   },
-  "add-user-dialog": {
-    "add-user-title": "Adatok",
-    "form":{
-      "first-name-label": "Keresztnév",
-      "last-name-label": "Vezetéknév",
-      "username-label": "Felhasználónév",
-      "password-label": "Jelszó",
-      "email-label": "Email",
-      "phone-number-label": "Telefonszám"
+  "user-managment-dialog": {
+    "user-managment-dialog-title": "Adatok",
+    "form": {
+      "firstname": {
+        "label": "Keresztnév",
+        "placeholder": "Írd be a keresztnevet"
+      },
+      "lastname": {
+        "label": "Vezetéknév",
+        "placeholder": "Írd be a vezetéknevet"
+      },
+      "username": {
+        "label": "Felhasználónév",
+        "placeholder": "Írd be a felhasználónevet"
+      },
+      "password": {
+        "label": "Jelszó",
+        "placeholder": "Írd be a jelszavad"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Írd be az email címed"
+      },
+      "phone-number": {
+        "label": "Telefonszám",
+        "placeholder": "Írd be a telefonszámod"
+      }
     },
     "submit-btn": "Mentés"
   },
