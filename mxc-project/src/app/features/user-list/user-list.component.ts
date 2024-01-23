@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { PageOptions, UserService } from '../../core/services/user.service';
-import { UserManagmentDialogComponent } from '../../dialogs/add-user/user-managment-dialog.component';
+import { UserManagmentDialogComponent } from '../../dialogs/user-managment-dialog/user-managment-dialog.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
 import { IUser } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
