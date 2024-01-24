@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Inject } from '@angular/core';
 import { IUser } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';

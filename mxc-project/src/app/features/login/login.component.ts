@@ -5,8 +5,8 @@ import { ILoginUser } from '../../core/models/login';
 import { AuthService } from '../../core/services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';

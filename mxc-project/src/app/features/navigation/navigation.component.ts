@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import { TranslateModule } from '@ngx-translate/core';
 
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-navigation',
   standalone: true,

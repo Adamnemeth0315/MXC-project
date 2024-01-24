@@ -7,9 +7,8 @@ import { IUser, IUserListResponse } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
 import { LoadingService } from '../../core/services/loading.service';
 import { Subject } from 'rxjs';
+
 import { TranslateModule } from '@ngx-translate/core';
-
-
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -58,20 +57,7 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
 export class UserListComponent implements OnInit {
   private _userService = inject(UserService);
   private _dialogService = inject(DialogService);
-  public loadingService = inject(LoadingService);
-
-  public usersLength = 0;
-  public pageIndex = 0;
-  public pageSize = 5;
-  public pageSizeOptions = [5, 10];
-  public isLoading$ = this.loadingService.isLoading$;
-
-  //Font awesome icons
-  public faPlus = faPlus;
-  public faUser = faUser;
-  public faAngleDown = faAngleDown;
-  public faAngleUp = faAngleUp;
-
+  private _loadingService = inject(LoadingService);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -82,6 +68,19 @@ export class UserListComponent implements OnInit {
     'delete',
   ];
   public dataSource: IUser[] = [];
+  public isLoading$ = this._loadingService.isLoading$;
+
+  // Paginator's variables
+  public usersLength = 0;
+  public pageIndex = 0;
+  public pageSize = 5;
+  public pageSizeOptions = [5, 10];
+
+  // Font awesome icons
+  public faPlus = faPlus;
+  public faUser = faUser;
+  public faAngleDown = faAngleDown;
+  public faAngleUp = faAngleUp;
 
   ngOnInit(): void {
     this.fetchUsers();
@@ -123,7 +122,6 @@ export class UserListComponent implements OnInit {
   };
 
   public sortUsers(orderby: string, order: string): void {
-
     // Here I set up the queryParams, but first I check whether there are any changes to the stored queryParam values or not
     if (orderby !== this._userService.queryParams.orderby || order !== this._userService.queryParams.order) {
       this._userService.queryParams.order = order;

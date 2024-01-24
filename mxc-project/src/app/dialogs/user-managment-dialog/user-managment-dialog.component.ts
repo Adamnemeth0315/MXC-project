@@ -3,8 +3,8 @@ import { Component, inject, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
