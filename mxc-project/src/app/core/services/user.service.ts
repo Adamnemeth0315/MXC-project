@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser, IUserListResponse } from '../models/user';
-import { ConfigService } from './config.service';
+import { environment } from '../../../environments/environment';
 
 export class PageOptions {
   pageIndex = 0;
@@ -16,9 +16,8 @@ export class PageOptions {
 })
 export class UserService {
   private _http = inject(HttpClient);
-  private _configService = inject(ConfigService);
 
-  private _baseUrl = `${this._configService.baseUrl}admin/`;
+  private _baseUrl = `${environment.baseUrl}admin/`;
   private _userList$: BehaviorSubject<IUserListResponse> = new BehaviorSubject<IUserListResponse>({results: [], resultsLength: 0});
   public queryParams: PageOptions = {
     order: 'asc',

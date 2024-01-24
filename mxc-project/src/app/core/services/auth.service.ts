@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { ILoginUser } from '../models/login';
-import { ConfigService } from './config.service';
+import { environment } from '../../../environments/environment';
 
 export class LoginResponse {
   access_token = '';
@@ -17,9 +17,8 @@ export class LoginResponse {
 export class AuthService {
   private _http = inject(HttpClient);
   private _router = inject(Router);
-  private _configService = inject(ConfigService);
 
-  private baseUrl = `${this._configService.baseUrl}identity/`;
+  private baseUrl = `${environment.baseUrl}identity/`;
   currentUserSubject$: BehaviorSubject<ILoginUser | null> = new BehaviorSubject<ILoginUser | null>(null);
   public loginResponse: LoginResponse = new LoginResponse();
 
@@ -29,7 +28,7 @@ export class AuthService {
   }
 
   getLocalStorageData(): Observable<boolean> {
-    return of(localStorage[this._configService.storageName]).pipe(
+    return of(localStorage[environment.storageName]).pipe(
       switchMap((localStorageData) => {
         if (localStorageData) {
           this.loginResponse = JSON.parse(localStorageData);
@@ -53,7 +52,7 @@ export class AuthService {
         return this.getUserMe(response.access_token).pipe(
           tap((user) => {
             if (response.access_token) {
-              localStorage.setItem(this._configService.storageName, JSON.stringify(response));
+              localStorage.setItem(environment.storageName, JSON.stringify(response));
             }
             this.currentUserSubject$.next(user);
             this.loginResponse = response;
@@ -70,13 +69,13 @@ export class AuthService {
 
     this._http.post(`${this.baseUrl}logout`, null).subscribe({
       next: () => {
-        localStorage.removeItem(this._configService.storageName);
+        localStorage.removeItem(environment.storageName);
         this._router.navigate(['/']);
       }
     })
   }
 
   getUserMe(accessToken: string): Observable<ILoginUser> {
-    return this._http.get<ILoginUser>(`${this._configService.baseUrl}user/me`, { headers: { Authorization: `Bearer ${accessToken}` } });
+    return this._http.get<ILoginUser>(`${environment.baseUrl}user/me`, { headers: { Authorization: `Bearer ${accessToken}` } });
   }
 }
