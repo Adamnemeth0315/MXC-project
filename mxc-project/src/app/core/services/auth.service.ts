@@ -45,7 +45,7 @@ export class AuthService {
         }
       }),
       map((user) => !!user) // Returns a true or false depending on whether there is a user
-  )};
+  )}
 
   public login(user: ILoginUser): Observable<ILoginUser> {
     return this._http.post<LoginResponse>(`${this.baseUrl}token`, user).pipe(

@@ -83,7 +83,7 @@ export class UserManagmentDialogComponent implements OnInit {
       password: this.userForm.get('password')?.value,
       email: this.userForm.get('email')?.value,
       phoneNumber: this.userForm.get('phoneNumber')?.value,
-      roles: ["2e435039-91b0-4752-8f2e-517f2f186def"]
+      roles: ["bfaa9e3b-01d5-428d-997a-5c2822781ca1"]
     }
 
     this.user

@@ -49,7 +49,7 @@ export class LoginComponent {
 
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
-  };
+  }
 
   public login(): void {
     const user = this.loginForm.value as ILoginUser;
@@ -60,6 +60,6 @@ export class LoginComponent {
       },
       error: () => this.hasError = true
     })
-  };
+  }
 
 }

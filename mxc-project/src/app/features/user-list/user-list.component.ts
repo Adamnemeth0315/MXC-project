@@ -109,17 +109,17 @@ export class UserListComponent implements OnInit {
 
   openAddUserDialog(): void {
     this._dialogService.openDialog(UserManagmentDialogComponent);
-  };
+  }
 
   public openEditUserDialog(id: string): void {
       this._userService.getUserById(id).pipe(untilDestroyed(this)).subscribe((user) => {
           this._dialogService.openDialog(UserManagmentDialogComponent, user);
         })
-  };
+  }
 
   public deleteUser(user: IUser): void {
-    this._dialogService.openDialog(DeleteUserDialogComponent, user);
-  };
+    this._dialogService.openDialog(DeleteUserDialogComponent, user)
+  }
 
   public sortUsers(orderby: string, order: string): void {
     // Here I set up the queryParams, but first I check whether there are any changes to the stored queryParam values or not

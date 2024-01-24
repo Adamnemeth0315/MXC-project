@@ -4,7 +4,7 @@
       <div *ngIf="showLogout" class="navigation__end">
         <div class="d-flex flex-column">
           <span> {{'navigation.welcome' | translate}} <strong>{{userName}}</strong>!</span>
-          <a class="navigation__logout-btn" svgIcon="logout" (click)="logout()">
+          <a class="navigation__logout-btn" (click)="logout()">
             {{'navigation.logout' | translate}}
           </a>
         </div>

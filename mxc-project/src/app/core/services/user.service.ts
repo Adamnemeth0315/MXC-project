@@ -28,7 +28,7 @@ export class UserService {
   };
 
   public getUserList(pageOptions: PageOptions): Observable<IUserListResponse> {
-    let params = new HttpParams()
+    const params = new HttpParams()
     .set('order', pageOptions.order)
     .set('pageIndex', pageOptions.pageIndex)
     .set('limit', pageOptions.limit)
@@ -44,19 +44,19 @@ export class UserService {
     return this._userList$.asObservable();
   }
 
-  public getUserById(id: string): Observable<Object> {
+  public getUserById(id: string): Observable<object> {
     return this._http.get<IUser>(`${this._baseUrl}user/${id}`);
   }
 
-  public addUser(user: IUser): Observable<Object> {
+  public addUser(user: IUser): Observable<object> {
     return this._http.post<IUser>(`${this._baseUrl}user`, user);
   }
 
-  public editUserById(user: IUser): Observable<Object>  {
+  public editUserById(user: IUser): Observable<object>  {
     return this._http.put<IUser>(`${this._baseUrl}user/${user.id}`, user);
   }
 
-  public removeUserById(id: string): Observable<Object>  {
+  public removeUserById(id: string): Observable<object>  {
     return this._http.delete(`${this._baseUrl}user/${id}`);
   }
 }
