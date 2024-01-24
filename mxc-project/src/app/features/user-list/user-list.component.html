@@ -41,7 +41,7 @@
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef> {{'user-list.user-table-header.edit' | translate}} </th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon class="users-table__icon" (click)="openEditUserDialog(element.id)">edit</mat-icon>
+            <mat-icon class="users-table__icon" (click)="openEditUserDialog(element)">edit</mat-icon>
           </td>
         </ng-container>
 

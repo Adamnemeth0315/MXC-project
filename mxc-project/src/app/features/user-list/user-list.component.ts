@@ -111,8 +111,8 @@ export class UserListComponent implements OnInit {
     this._dialogService.openDialog(UserManagmentDialogComponent);
   }
 
-  public openEditUserDialog(id: string): void {
-      this._userService.getUserById(id).pipe(untilDestroyed(this)).subscribe((user) => {
+  public openEditUserDialog(user: IUser): void {
+      this._userService.getUserById(user.id).pipe(untilDestroyed(this)).subscribe((user) => {
           this._dialogService.openDialog(UserManagmentDialogComponent, user);
         })
   }

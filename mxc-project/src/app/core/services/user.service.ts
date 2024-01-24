@@ -43,7 +43,7 @@ export class UserService {
     return this._userList$.asObservable();
   }
 
-  public getUserById(id: string): Observable<object> {
+  public getUserById(id: string): Observable<IUser> {
     return this._http.get<IUser>(`${this._baseUrl}user/${id}`);
   }
 
