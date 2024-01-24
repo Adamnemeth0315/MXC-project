@@ -3,7 +3,7 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { PageOptions, UserService } from '../../core/services/user.service';
 import { UserManagmentDialogComponent } from '../../dialogs/user-managment-dialog/user-managment-dialog.component';
 import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
-import { IUser } from '../../core/models/user';
+import { IUser, IUserListResponse } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
 import { LoadingService } from '../../core/services/loading.service';
 import { Subject } from 'rxjs';
@@ -63,6 +63,7 @@ export class UserListComponent implements OnInit {
   public usersLength = 0;
   public pageIndex = 0;
   public pageSize = 5;
+  public pageSizeOptions = [5, 10];
   public isLoading$ = this.loadingService.isLoading$;
 
   //Font awesome icons
@@ -101,7 +102,7 @@ export class UserListComponent implements OnInit {
       orderby: this._userService.queryParams.orderby,
       order: this._userService.queryParams.order,
     };
-    this._userService.getUserList(pageOptions).pipe(untilDestroyed(this)).subscribe((users: any) => {
+    this._userService.getUserList(pageOptions).pipe(untilDestroyed(this)).subscribe((users: IUserListResponse) => {
       this.dataSource = users.results;
       this.usersLength = users.resultsLength;
     });

@@ -10,36 +10,42 @@
     <form class="form" [formGroup]="userForm" (ngSubmit)="submitForm()">
       <div class="d-flex flex-column p-2">
 
+        <!-- Firstname -->
         <mat-form-field appearance="outline">
           <mat-label>{{'user-managment-dialog.form.firstname.label' | translate}}</mat-label>
           <input formControlName="firstName" matInput type="text"
             placeholder="{{'user-managment-dialog.form.firstname.placeholder' | translate}}">
         </mat-form-field>
 
+        <!-- Lastname -->
         <mat-form-field appearance="outline">
           <mat-label>{{'user-managment-dialog.form.lastname.label' | translate}}</mat-label>
           <input formControlName="lastName" matInput type="text"
             placeholder="{{'user-managment-dialog.form.lastname.placeholder' | translate}}">
         </mat-form-field>
 
+        <!-- Username -->
         <mat-form-field appearance="outline">
           <mat-label>{{'user-managment-dialog.form.username.label' | translate}}</mat-label>
           <input formControlName="userName" matInput type="text"
             placeholder="{{'user-managment-dialog.form.username.placeholder' | translate}}">
         </mat-form-field>
 
+        <!-- Password -->
         <mat-form-field appearance="outline">
           <mat-label>{{'user-managment-dialog.form.password.label' | translate}}</mat-label>
           <input formControlName="password" matInput type="password"
             placeholder="{{'user-managment-dialog.form.password.placeholder' | translate}}">
         </mat-form-field>
 
+        <!-- Email -->
         <mat-form-field appearance="outline">
           <mat-label>{{'user-managment-dialog.form.email.label' | translate}}</mat-label>
           <input formControlName="email" matInput type="text"
             placeholder="{{'user-managment-dialog.form.email.placeholder' | translate}}">
         </mat-form-field>
 
+        <!-- Phone Number -->
         <mat-form-field appearance="outline">
           <mat-label>{{'user-managment-dialog.form.phone-number.label' | translate}}</mat-label>
           <input formControlName="phoneNumber" matInput type="text"

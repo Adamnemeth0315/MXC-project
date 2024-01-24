@@ -58,7 +58,7 @@
       </table>
 
       <div class="users-table__paginator">
-        <mat-paginator [length]="usersLength" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="[5, 10]" aria-label="Select page"
+        <mat-paginator [length]="usersLength" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page"
           (page)="onPaginateChange($event)">
         </mat-paginator>
       </div>

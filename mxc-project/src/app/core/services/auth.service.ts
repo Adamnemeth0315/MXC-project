@@ -59,7 +59,7 @@ export class AuthService {
             this.loginResponse = response;
           }),
           catchError((error) => {
-            return throwError(error);
+            return throwError(() => new Error(error.message));
           })
         );
       })
