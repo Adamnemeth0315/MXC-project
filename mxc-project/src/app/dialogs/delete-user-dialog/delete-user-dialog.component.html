@@ -3,7 +3,7 @@
       <h1 class="delete-dialog__title">{{'delete-user-dialog.title' | translate}}</h1>
       <span class="delete-dialog__description">{{'delete-user-dialog.description' | translate}}</span>
     </div>
-    <div class="d-flex flex-row justify-content-end width-100 gap-4">
+    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-end width-100 gap-4">
       <button class="btn btn-primary" (click)="deleteUser(user.id)">{{'delete-user-dialog.delete-btn' | translate}}</button>
       <button class="btn btn-outline-primary" (click)="closeDialog()">{{'delete-user-dialog.cancel-btn' | translate}}</button>
     </div>

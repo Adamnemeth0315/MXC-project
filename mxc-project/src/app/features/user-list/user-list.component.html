@@ -1,6 +1,6 @@
 <ng-container *ngIf="!(isLoading$ | async); else loadingSpinner">
   <div class="users-table">
-    <div class="d-flex justify-content-between mb-5">
+    <div class="d-flex flex-column flex-sm-row justify-content-sm-between justify-content-center mb-5">
       <h1 class="users-table__title"><fa-icon [icon]="faUser"></fa-icon>  {{'user-list.title' | translate}} </h1>
       <button class="btn btn-primary" (click)="openAddUserDialog()">
         <fa-icon [icon]="faPlus"></fa-icon> {{'user-list.add-user-btn' | translate}}
