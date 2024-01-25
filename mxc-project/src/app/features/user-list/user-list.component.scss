@@ -13,6 +13,11 @@ $primary: #3f51b5;
     display: flex;
   }
 
+  &__container {
+    min-width: 450px;
+    width: 100%;
+  }
+
   .sort-icon {
     font-size: 15px;
     cursor: pointer;
@@ -29,4 +34,8 @@ $primary: #3f51b5;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.mat-elevation-z8 {
+  overflow-x: auto;
 }

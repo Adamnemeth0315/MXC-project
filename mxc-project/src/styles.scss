@@ -40,3 +40,8 @@ input[data-autocompleted] {
 .mat-form-field-infix {
   border-top: 2px solid transparent;
 }
+
+.mat-mdc-paginator {
+  min-width: 450px;
+  width: 100%;
+}
