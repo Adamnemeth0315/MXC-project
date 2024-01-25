@@ -1,4 +1,42 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+/* $my-custom-typography-config: mat.define-typography-config(
+  $headline: mat.define-typography-level(
+    $font-family: Roboto,
+    $font-weight: 400,
+    $font-size: 2rem,
+    $line-height: 2rem,
+    $letter-spacing: normal,
+  ),
+); */
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*Set input autofill background*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+transition: background-color 5000s;
+-webkit-box-shadow: 0 0 0px 1000px #F4F4F4 inset !important;
+-webkit-text-fill-color: #000 !important;
+}
+
+input[data-autocompleted] {
+  background-color: transparent !important;
+}
+
+.mat-form-field-infix {
+  border-top: 2px solid transparent;
+}

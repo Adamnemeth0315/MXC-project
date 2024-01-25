@@ -83,7 +83,7 @@ export class UserListComponent implements OnInit {
   public faAngleUp = faAngleUp;
 
   ngOnInit(): void {
-    this.fetchUsers();
+    this._fetchUsers();
   }
 
   public onPaginateChange(event: PageEvent): void {
@@ -91,10 +91,10 @@ export class UserListComponent implements OnInit {
     this._userService.queryParams.pageIndex = event.pageIndex;
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.fetchUsers();
+    this._fetchUsers();
   }
 
-  fetchUsers(): void {
+  private _fetchUsers(): void {
     const pageOptions: PageOptions = {
       pageIndex: this._userService.queryParams.pageIndex,
       limit: this._userService.queryParams.limit,
@@ -107,7 +107,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  openAddUserDialog(): void {
+  public openAddUserDialog(): void {
     this._dialogService.openDialog(UserManagmentDialogComponent);
   }
 
@@ -126,7 +126,7 @@ export class UserListComponent implements OnInit {
     if (orderby !== this._userService.queryParams.orderby || order !== this._userService.queryParams.order) {
       this._userService.queryParams.order = order;
       this._userService.queryParams.orderby = orderby;
-      this.fetchUsers();
+      this._fetchUsers();
     }
   }
 
