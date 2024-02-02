@@ -41,13 +41,12 @@ export class UserManagmentDialogComponent implements OnInit {
 
   public firstNameCtrl = new FormControl('', Validators.required);
   public lastNameCtrl = new FormControl('', Validators.required);
-  public userNameCtrl = new FormControl('', Validators.required);
+  public userNameCtrl = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9]+$")]);
   public passwordCtrl = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).+$')]);
   public emailCtrl = new FormControl('', [Validators.required, Validators.email]);
   public phoneNumberCtrl = new FormControl('');
 
   public faUserEdit = faUserEdit;
-
 
   public userForm = new FormGroup({
     firstName: this.firstNameCtrl,
@@ -59,7 +58,6 @@ export class UserManagmentDialogComponent implements OnInit {
   })
 
   constructor(@Inject(MAT_DIALOG_DATA) public user: IUser) { }
-
 
   ngOnInit(): void {
     if (this.user) {
@@ -92,19 +90,19 @@ export class UserManagmentDialogComponent implements OnInit {
         .subscribe({
           next: () => {
             this._userService.getUserList(this._pageOptions);
-            this._snackBar.open(this._translateService.instant('snack-bar.add-user-message'), 'OK', { duration: 5000 })
+            this._snackBar.open(this._translateService.instant('snack-bar.edit-user-message'), 'OK', { duration: 5000 })
           },
           error: () => {
-            this._snackBar.open(this._translateService.instant('snack-bar.add-user-error-message'), 'OK', { duration: 5000 })
+            this._snackBar.open(this._translateService.instant('snack-bar.edit-user-error-message'), 'OK', { duration: 5000 })
           }
         })
       : this._userService.addUser(data as unknown as IUser).subscribe({
         next: () => {
           this._userService.getUserList(this._pageOptions);
-          this._snackBar.open(this._translateService.instant('snack-bar.edit-user-message'), 'OK', { duration: 5000 })
+          this._snackBar.open(this._translateService.instant('snack-bar.add-user-message'), 'OK', { duration: 5000 })
         },
         error: () => {
-          this._snackBar.open(this._translateService.instant('snack-bar.edit-user-error-message'), 'OK', { duration: 5000 })
+          this._snackBar.open(this._translateService.instant('snack-bar.add-user-error-message'), 'OK', { duration: 5000 })
         }
       });
     this.userForm.reset();

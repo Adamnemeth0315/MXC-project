@@ -29,7 +29,7 @@ export class AuthService {
 
   getLocalStorageData(): Observable<boolean> {
     return of(localStorage[environment.storageName]).pipe(
-      switchMap((localStorageData) => {
+      switchMap((localStorageData: string) => {
         if (localStorageData) {
           this.loginResponse = JSON.parse(localStorageData);
           return this.getUserMe(this.loginResponse.access_token);
@@ -70,6 +70,7 @@ export class AuthService {
     this._http.post(`${this.baseUrl}logout`, null).subscribe({
       next: () => {
         localStorage.removeItem(environment.storageName);
+        this.currentUserSubject$.next(null);
         this._router.navigate(['/']);
       }
     })

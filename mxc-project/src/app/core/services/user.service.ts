@@ -19,6 +19,7 @@ export class UserService {
 
   private _baseUrl = `${environment.baseUrl}admin/`;
   private _userList$: BehaviorSubject<IUserListResponse> = new BehaviorSubject<IUserListResponse>({results: [], resultsLength: 0});
+
   public queryParams: PageOptions = {
     order: 'asc',
     pageIndex: 0,

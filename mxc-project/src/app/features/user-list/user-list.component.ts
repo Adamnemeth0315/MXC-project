@@ -1,41 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
 import { PageOptions, UserService } from '../../core/services/user.service';
 import { UserManagmentDialogComponent } from '../../dialogs/user-managment-dialog/user-managment-dialog.component';
-import { DeleteUserDialogComponent } from '../../dialogs/delete-user-dialog/delete-user-dialog.component';
 import { IUser, IUserListResponse } from '../../core/models/user';
 import { DialogService } from '../../core/services/dialog.service';
 import { LoadingService } from '../../core/services/loading.service';
-import { Subject } from 'rxjs';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-
-export class MyCustomPaginatorIntl implements MatPaginatorIntl {
-  changes = new Subject<void>();
-  itemsPerPageLabel = 'Elem per oldal';
-  nextPageLabel = 'Következő';
-  previousPageLabel = 'Előző';
-  firstPageLabel = 'Első';
-  lastPageLabel = 'Utolsó';
-
-  // Here I set the paginate text and layout
-  getRangeLabel = (page: number, pageSize: number, length: number) => {
-    if (length == 0 || pageSize == 0) {
-      return `0 / ${length}`;
-    }
-
-    length = Math.ceil(length / pageSize);
-
-    return `${page + 1} / ${length}`;
-  };
-}
+import { faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
+import { UsersTableComponent } from '../users-table/users-table.component';
 
 @UntilDestroy()
 @Component({
@@ -43,32 +21,24 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   standalone: true,
   imports: [
     CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
     MatIconModule,
     MatProgressSpinnerModule,
     FontAwesomeModule,
-    TranslateModule
+    TranslateModule,
+    UsersTableComponent
   ],
-  providers: [{ provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }],
   templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.scss'
+  styleUrl: './user-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserListComponent implements OnInit {
   private _userService = inject(UserService);
   private _dialogService = inject(DialogService);
   private _loadingService = inject(LoadingService);
+  private _cdr = inject(ChangeDetectorRef);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  public displayedColumns: string[] = [
-    'userName',
-    'createdAt',
-    'edit',
-    'delete',
-  ];
-  public dataSource: IUser[] = [];
-  public isLoading$ = this._loadingService.isLoading$;
+  public isLoading!: boolean;
+  public data!: IUser[];
 
   // Paginator's variables
   public usersLength = 0;
@@ -79,11 +49,13 @@ export class UserListComponent implements OnInit {
   // Font awesome icons
   public faPlus = faPlus;
   public faUser = faUser;
-  public faAngleDown = faAngleDown;
-  public faAngleUp = faAngleUp;
 
   ngOnInit(): void {
     this._fetchUsers();
+    this._loadingService.isLoading$.subscribe(data => {
+      this.isLoading = data;
+      this._cdr.detectChanges();
+    })
   }
 
   public onPaginateChange(event: PageEvent): void {
@@ -95,37 +67,23 @@ export class UserListComponent implements OnInit {
   }
 
   private _fetchUsers(): void {
-    const pageOptions: PageOptions = {
-      pageIndex: this._userService.queryParams.pageIndex,
-      limit: this._userService.queryParams.limit,
-      orderby: this._userService.queryParams.orderby,
-      order: this._userService.queryParams.order,
-    };
+    const pageOptions: PageOptions = this._userService.queryParams;
     this._userService.getUserList(pageOptions).pipe(untilDestroyed(this)).subscribe((users: IUserListResponse) => {
-      this.dataSource = users.results;
+      this.data = users.results;
       this.usersLength = users.resultsLength;
     });
+    this._cdr.detectChanges();
   }
 
   public openAddUserDialog(): void {
     this._dialogService.openDialog(UserManagmentDialogComponent);
   }
 
-  public openEditUserDialog(user: IUser): void {
-      this._userService.getUserById(user.id).pipe(untilDestroyed(this)).subscribe((user) => {
-          this._dialogService.openDialog(UserManagmentDialogComponent, user);
-        })
-  }
-
-  public deleteUser(user: IUser): void {
-    this._dialogService.openDialog(DeleteUserDialogComponent, user)
-  }
-
-  public sortUsers(orderby: string, order: string): void {
+  public sortUsers(event: {orderby: string, order: string}): void {
     // Here I set up the queryParams, but first I check whether there are any changes to the stored queryParam values or not
-    if (orderby !== this._userService.queryParams.orderby || order !== this._userService.queryParams.order) {
-      this._userService.queryParams.order = order;
-      this._userService.queryParams.orderby = orderby;
+    if (event.orderby !== this._userService.queryParams.orderby || event.order !== this._userService.queryParams.order) {
+      this._userService.queryParams.order = event.order;
+      this._userService.queryParams.orderby = event.orderby;
       this._fetchUsers();
     }
   }

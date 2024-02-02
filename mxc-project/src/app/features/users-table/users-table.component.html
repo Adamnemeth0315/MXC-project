@@ -1,0 +1,90 @@
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="data" class="users-table__container">
+    <!-- Username Column -->
+    <ng-container matColumnDef="userName">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="d-flex justify-content-between align-items-center">
+          <span>{{ "user-list.user-table-header.username" | translate }}</span>
+          <div class="d-flex flex-column">
+            <fa-icon
+              class="sort-icon"
+              (click)="sortUsers('UserName', 'desc')"
+              [icon]="faAngleUp"
+            ></fa-icon>
+            <fa-icon
+              class="sort-icon"
+              (click)="sortUsers('UserName', 'asc')"
+              [icon]="faAngleDown"
+            ></fa-icon>
+          </div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+    </ng-container>
+
+    <!-- CreatedAt Column -->
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="d-flex justify-content-between align-items-center">
+          <span>{{
+            "user-list.user-table-header.created-at" | translate
+          }}</span>
+          <div class="d-flex flex-column align-items-center">
+            <fa-icon
+              class="sort-icon"
+              (click)="sortUsers('CreatedAt', 'desc')"
+              [icon]="faAngleUp"
+            ></fa-icon>
+            <fa-icon
+              class="sort-icon"
+              (click)="sortUsers('CreatedAt', 'asc')"
+              [icon]="faAngleDown"
+            ></fa-icon>
+          </div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.createdAt | date : "yyyy.MM.dd" }}
+      </td>
+    </ng-container>
+
+    <!-- Edit Column -->
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "user-list.user-table-header.edit" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon
+          class="users-table__icon"
+          (click)="openEditUserDialog(element)"
+          >edit</mat-icon
+        >
+      </td>
+    </ng-container>
+
+    <!-- Delete Column -->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ "user-list.user-table-header.delete" | translate }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon class="users-table__icon" (click)="deleteUser(element)"
+          >delete</mat-icon
+        >
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+    <mat-paginator
+      [length]="usersLength"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      aria-label="Select page"
+      (page)="onPaginateChange($event)"
+    >
+    </mat-paginator>
+</div>
