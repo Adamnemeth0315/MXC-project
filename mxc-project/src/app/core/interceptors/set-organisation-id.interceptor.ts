@@ -15,7 +15,7 @@ export class SetOrganisationIdInterceptor implements HttpInterceptor {
     if (user) {
       const modifiedRequest = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this._authService.loginResponse.access_token}`,
+          Authorization: `Bearer ${this._authService.loginResponse}`,
           'X-OrganisationId': organisationId
         },
       });
