@@ -77,7 +77,6 @@ export class UsersTableComponent {
   public faAngleDown = faAngleDown;
   public faAngleUp = faAngleUp;
 
-
   public onPaginateChange(event: PageEvent): void {
     this.page.emit(event)
   }
