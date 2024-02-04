@@ -7,7 +7,7 @@ import { BehaviorSubject } from "rxjs";
 export class LoadingService {
   private _loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isLoading$ = this._loadingSubject.asObservable();
-  // Azért kell, hogy figyeljük a requestek számát, ha minden request lefutott csak akkor fusson le a hideLoader! 
+  // Azért kell, hogy figyeljük a requestek számát, ha minden request lefutott csak akkor fusson le a hideLoader!
   private _activeRequests: number = 0;
 
   showLoader(): void {
@@ -18,7 +18,6 @@ export class LoadingService {
   hideLoader(): void {
     this._activeRequests--;
     if (this._activeRequests === 0) {
-
       this._loadingSubject.next(false);
     }
   }

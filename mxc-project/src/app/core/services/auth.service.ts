@@ -40,7 +40,7 @@ export class AuthService {
     const localStorageData: string = localStorage[environment.storageName];
     if (localStorageData) {
       this.loginResponse = JSON.parse(localStorageData);
-      return this.getUserMe(this.loginResponse).pipe(
+      return this.getUserMe().pipe(
         catchError(() => of(null)), // If there is some error, an empty observable is returned
         tap((user) => {
           if (user) {
@@ -64,7 +64,7 @@ export class AuthService {
           );
           this.loginResponse = response.access_token;
         }
-        return this.getUserMe(response.access_token).pipe(
+        return this.getUserMe().pipe(
           tap((user) => {
             this.currentUserSubject$.next(user);
           }),
@@ -86,9 +86,7 @@ export class AuthService {
     });
   }
 
-  getUserMe(accessToken: string): Observable<ILoginUser> {
-    return this._http.get<ILoginUser>(`${environment.baseUrl}user/me`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+  getUserMe(): Observable<ILoginUser> {
+    return this._http.get<ILoginUser>(`${environment.baseUrl}user/me`);
   }
 }

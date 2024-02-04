@@ -5,17 +5,17 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SetOrganisationIdInterceptor implements HttpInterceptor {
-  private _authService = inject(AuthService);
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
 
     const organisationId = environment.organisationID;
-    const user = this._authService.currentUserValue;
+    const token = localStorage[environment.storageName];
 
-    if (user) {
+    if (token) {
+      const accesToken = JSON.parse(token);
       const modifiedRequest = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this._authService.loginResponse}`,
+          Authorization: `Bearer ${accesToken}`,
           'X-OrganisationId': organisationId
         },
       });
