@@ -13,12 +13,7 @@ import {
 } from 'rxjs';
 import { ILoginUser } from '../models/login';
 import { environment } from '../../../environments/environment';
-
-export class LoginResponse {
-  access_token = '';
-  token_type = '';
-  expires_in = 0;
-}
+import { ILoginResponse } from '../models/login-response';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +50,7 @@ export class AuthService {
   }
 
   public login(user: ILoginUser): Observable<ILoginUser> {
-    return this._http.post<LoginResponse>(`${this.baseUrl}token`, user).pipe(
+    return this._http.post<ILoginResponse>(`${this.baseUrl}token`, user).pipe(
       switchMap((response) => {
         if (response.access_token) {
           localStorage.setItem(
