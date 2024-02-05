@@ -25,7 +25,6 @@ export class AuthService {
   private baseUrl = `${environment.baseUrl}identity/`;
   currentUserSubject$: BehaviorSubject<ILoginUser | null> =
     new BehaviorSubject<ILoginUser | null>(null);
-  public loginResponse = '';
 
   get currentUserValue(): ILoginUser | null {
     return this.currentUserSubject$.value;
@@ -34,7 +33,6 @@ export class AuthService {
   getLocalStorageData(): Observable<boolean> {
     const localStorageData: string = localStorage[environment.storageName];
     if (localStorageData) {
-      this.loginResponse = JSON.parse(localStorageData);
       return this.getUserMe().pipe(
         catchError(() => of(null)), // If there is some error, an empty observable is returned
         tap((user) => {
@@ -57,7 +55,6 @@ export class AuthService {
             environment.storageName,
             JSON.stringify(response.access_token)
           );
-          this.loginResponse = response.access_token;
         }
         return this.getUserMe().pipe(
           tap((user) => {
