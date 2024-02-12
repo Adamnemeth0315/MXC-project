@@ -1,0 +1,70 @@
+{
+  "navigation": {
+    "welcome": "Welcome:",
+    "language": "Choose language",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Login",
+    "username-label": "Username",
+    "username-placeholder": "Enter your username",
+    "password-label": "Password",
+    "password-placeholder": "Enter your password",
+    "error-message": "An error occurred during the login process!",
+    "login-btn": "Login"
+  },
+  "user-list": {
+    "title": "Workers",
+    "user-table-header": {
+      "username": "Username",
+      "created-at": "Creation date",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "add-user-btn": "Add new employee"
+  },
+  "user-managment-dialog": {
+    "user-managment-dialog-title": "Data",
+    "form": {
+      "firstname": {
+        "label": "Firstname",
+        "placeholder": "Enter your firstname"
+      },
+      "lastname": {
+        "label": "Lastname",
+        "placeholder": "Enter your lastname"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter your username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email"
+      },
+      "phone-number": {
+        "label": "Phone Number",
+        "placeholder": "Enter your phone number"
+      }
+    },
+    "submit-btn": "Submit"
+  },
+  "delete-user-dialog": {
+    "title": "Are you sure you want to delete the employee?",
+    "description": "Clicking the delete button will delete the employee from the system!",
+    "cancel-btn": "Cancel",
+    "delete-btn": "Delete"
+  },
+  "snack-bar": {
+    "delete-user-message": "The employee has been successfully deleted!",
+    "delete-user-error-message": "Failed to delete the employee!",
+    "add-user-message": "The new employee has been successfully added to the list!",
+    "add-user-error-message": "Adding an employee failed!",
+    "edit-user-message": "The employee has been successfully edited!",
+    "edit-user-error-message": "The edit of employee failed!"
+  }
+}

@@ -1,6 +1,7 @@
 {
   "navigation": {
     "welcome": "Üdvözöljük:",
+    "language": "Válassz nyelvet",
     "logout": "Kijelentkezés"
   },
   "login": {
