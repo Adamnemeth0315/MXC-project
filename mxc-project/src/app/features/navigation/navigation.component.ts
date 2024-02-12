@@ -27,7 +27,7 @@ export class NavigationComponent implements OnInit {
 
   public showLogout = false;
   public userName = '';
-  public defaultLang = '';
+  public selectedLang = '';
 
   constructor(public translate: TranslateService) {
     translate.addLangs(['hu', 'en']);
@@ -43,13 +43,16 @@ export class NavigationComponent implements OnInit {
         this.showLogout = false;
       }
     });
-    // Itt állítom be a default languaget TODO: Még meg kell oldani, hogy oldalfrissítésre ne állítódjon vissza magyarra ha átváltok.
-    this.defaultLang = this.translate.store.defaultLang;
+
+    // Here I set the selected language
+    this.selectedLang = localStorage.getItem('selectedLang') ?? this.translate.getDefaultLang();
+    this.translate.use(this.selectedLang);
   }
 
   public switchLang(language: string) {
-    //Itt váltok a nyelverk között.
     this.translate.use(language);
+    this.selectedLang = language;
+    localStorage.setItem('selectedLang', language);
   }
 
   public logout() {
