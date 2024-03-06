@@ -5,7 +5,7 @@
           <select #selectedLanguage [(ngModel)]="selectedLang" (change)="switchLang(selectedLanguage.value)">
             <option *ngFor="let language of translate.getLangs()" [value]="language">{{language}}</option>
           </select>
-          <div *ngIf="showLogout" class="d-flex justify-center flex-row">
+          <div *ngIf="showLogout" class="d-flex">
             <div class="d-flex flex-column">
               <span> {{'navigation.welcome' | translate}} <strong>{{userName}}</strong>!</span>
               <a class="navigation__logout-btn" (click)="logout()">
